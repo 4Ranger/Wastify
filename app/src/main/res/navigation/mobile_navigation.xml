@@ -12,8 +12,18 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.capstonewahwah.wastify.ui.main.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_location"
+        android:name="com.capstonewahwah.wastify.ui.main.location.LocationFragment"
+        android:label="@string/title_location"
+        tools:layout="@layout/fragment_location" />
+    <fragment
+        android:id="@+id/navigation_mart"
+        android:name="com.capstonewahwah.wastify.ui.main.mart.MartFragment"
+        android:label="@string/title_mart"
+        tools:layout="@layout/fragment_mart" />
+    <fragment
+        android:id="@+id/navigation_classification"
+        android:name="com.capstonewahwah.wastify.ui.main.classifications.ClassificationsFragment"
+        android:label="@string/title_classifications"
+        tools:layout="@layout/fragment_classifications" />
 </navigation>
