@@ -27,27 +27,43 @@
         android:layout_marginHorizontal="40dp"
         android:layout_marginBottom="80dp">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_login_wastify"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:text="@string/login_wastify"
-            android:textAllCaps="false"
-            android:backgroundTint="@color/green"
-            android:outlineSpotShadowColor="@android:color/transparent"
-            android:textColor="@color/white"
-            app:cornerRadius="12dp"/>
+            android:layout_height="60dp">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_login_google"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_login_wastify"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/login_wastify"
+                android:textAllCaps="false"
+                android:backgroundTint="@color/light_green"
+                android:outlineSpotShadowColor="@android:color/transparent"
+                android:textColor="@color/white"
+                app:cornerRadius="12dp"
+                app:icon="@drawable/ic_logo"
+                app:iconSize="30dp"
+                app:iconTint="@null"/>
+        </FrameLayout>
+
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:text="@string/login_google"
-            android:textAllCaps="false"
-            android:backgroundTint="@color/gray"
-            android:textColor="@color/black"
-            android:outlineSpotShadowColor="@android:color/transparent"
-            app:cornerRadius="12dp"/>
+            android:layout_height="60dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_login_google"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/login_google"
+                android:textAllCaps="false"
+                android:backgroundTint="@color/gray"
+                android:textColor="@color/black"
+                android:outlineSpotShadowColor="@android:color/transparent"
+                app:cornerRadius="12dp"
+                app:icon="@drawable/ic_google"
+                app:iconSize="30dp"
+                app:iconTint="@null"/>
+        </FrameLayout>
     </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>

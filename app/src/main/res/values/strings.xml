@@ -13,4 +13,14 @@
     <string name="welcome_banner">Welcome Banner</string>
     <string name="login_wastify">Login with Wastify Account</string>
     <string name="login_google">Login with Google Account</string>
+    <string name="logo">Logo</string>
+    <string name="login">Login</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="click_here">Klik disini</string>
+    <string name="dont_have_an_account">Belum punya akun?</string>
+    <string name="register">Daftar</string>
+    <string name="confirm_pwd">Konfirmasi Password</string>
+    <string name="full_name">Nama Lengkap</string>
+    <string name="already_have_an_account">Sudah punya akun?</string>
 </resources>

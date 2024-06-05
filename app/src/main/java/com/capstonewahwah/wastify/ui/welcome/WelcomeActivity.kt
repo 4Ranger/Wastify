@@ -8,6 +8,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.capstonewahwah.wastify.R
 import com.capstonewahwah.wastify.databinding.ActivityWelcomeBinding
+import com.capstonewahwah.wastify.ui.login.LoginActivity
 import com.capstonewahwah.wastify.ui.main.MainActivity
 
 class WelcomeActivity : AppCompatActivity() {
@@ -22,6 +23,10 @@ class WelcomeActivity : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+
+        binding.btnLoginWastify.setOnClickListener {
+            startActivity(Intent(this@WelcomeActivity, LoginActivity::class.java))
         }
     }
 }
