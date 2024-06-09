@@ -15,6 +15,9 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "NEWS_BASE_URL", "\"https://newsapi.org/v2/\"")
+        buildConfigField("String", "NEWS_API_KEY", "\"0730bc50fc454b1c9f246f46a19e3c5b\"")
     }
 
     buildTypes {
@@ -56,4 +59,6 @@ dependencies {
     implementation(libs.converter.gson)
     implementation(libs.logging.interceptor)
     implementation(libs.androidx.datastore.preferences)
+    implementation(libs.skeletonlayout)
+    implementation(libs.glide)
 }

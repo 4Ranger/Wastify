@@ -26,4 +26,9 @@
         android:name="com.capstonewahwah.wastify.ui.main.classifications.ClassificationsFragment"
         android:label="@string/title_classifications"
         tools:layout="@layout/fragment_classifications" />
+    <fragment
+        android:id="@+id/navigation_scan1"
+        android:name="com.capstonewahwah.wastify.ui.scan.ScanFragment1"
+        android:label="fragment_scan1"
+        tools:layout="@layout/fragment_scan1" />
 </navigation>

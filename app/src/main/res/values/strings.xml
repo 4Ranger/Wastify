@@ -23,4 +23,19 @@
     <string name="confirm_pwd">Konfirmasi Password</string>
     <string name="full_name">Nama Lengkap</string>
     <string name="already_have_an_account">Sudah punya akun?</string>
+    <string name="hello">Hello,</string>
+    <string name="username_home">%s</string>
+    <string name="article_source">Kompas.com</string>
+    <string name="article_title">7 Jenis Sampah Yang Perlu Kamu Ketahui!</string>
+    <string name="article_home_title">Artikel untukmu hari ini</string>
+    <string name="start">Mulai</string>
+    <string name="help_description2">Cara untuk manajemen sampah terbaikmu!</string>
+    <string name="help_description1">Gimana sih cara pakai Wastify?</string>
+    <string name="waste_amount">%d Sampah</string>
+    <string name="your_waste">Sampah Kamu</string>
+    <string name="user_point">%d Poin</string>
+    <string name="your_points">Poin Kamu</string>
+    <string name="perhatikan_background">Perhatikan Background!</string>
+    <string name="panduan_desc">Pastikan sampah berada di background yang bersih dan kontras ya!</string>
+    <string name="panduan_foto">Panduan Foto</string>
 </resources>

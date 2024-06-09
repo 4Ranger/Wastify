@@ -7,6 +7,7 @@ import com.capstonewahwah.wastify.data.Repository
 import com.capstonewahwah.wastify.di.Injection
 import com.capstonewahwah.wastify.ui.login.LoginViewModel
 import com.capstonewahwah.wastify.ui.main.MainViewModel
+import com.capstonewahwah.wastify.ui.main.home.HomeViewModel
 
 class ViewModelFactory(private val repository: Repository) : ViewModelProvider.NewInstanceFactory() {
     @Suppress("UNCHECKED_CAST")
@@ -17,6 +18,9 @@ class ViewModelFactory(private val repository: Repository) : ViewModelProvider.N
             }
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
                 LoginViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
+                HomeViewModel(repository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel Class: " + modelClass.name)
         }
