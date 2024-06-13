@@ -6,36 +6,40 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.findNavController
+import androidx.core.net.toUri
+import androidx.navigation.fragment.findNavController
 import androidx.transition.Slide
 import com.capstonewahwah.wastify.R
-import com.capstonewahwah.wastify.databinding.FragmentScan1Binding
+import com.capstonewahwah.wastify.databinding.FragmentPreviewBinding
 
-class ScanFragment1 : Fragment() {
+class PreviewFragment : Fragment() {
 
-    private var _binding: FragmentScan1Binding? = null
+    private var _binding: FragmentPreviewBinding? = null
     private val binding get() = _binding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enterTransition = Slide(Gravity.BOTTOM)
-        exitTransition = Slide(Gravity.TOP)
+        enterTransition = Slide(Gravity.END)
+        exitTransition = Slide(Gravity.START)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentScan1Binding.inflate(inflater, container, false)
+        _binding = FragmentPreviewBinding.inflate(inflater, container, false)
         return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding?.tvStart?.setOnClickListener{
-            val toScanFragment2 = ScanFragment1Directions.actionNavigationScan1ToScanFragment2()
-            it.findNavController().navigate(toScanFragment2)
+        val image = PreviewFragmentArgs.fromBundle(arguments as Bundle).uri
+        binding?.ivPrev?.setImageURI(image.toUri())
+
+        binding?.btnAnalyze?.setOnClickListener {
+            val toResult = PreviewFragmentDirections.actionNavigationPreviewToResultFragment()
+            findNavController().navigate(toResult)
         }
     }
 

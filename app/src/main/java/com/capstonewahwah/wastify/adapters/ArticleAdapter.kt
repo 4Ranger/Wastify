@@ -28,6 +28,7 @@ class ArticleAdapter(private val isLoading: Boolean) : ListAdapter<ArticlesItem,
             }
             binding.tvTitle.text = article.title
             binding.tvSource.text = article.source.name
+            if (isLoading) binding.skeletonLayout.showSkeleton() else binding.skeletonLayout.showOriginal()
         }
     }
 

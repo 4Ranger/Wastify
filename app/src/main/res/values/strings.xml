@@ -14,7 +14,7 @@
     <string name="login_wastify">Login with Wastify Account</string>
     <string name="login_google">Login with Google Account</string>
     <string name="logo">Logo</string>
-    <string name="login">Login</string>
+    <string name="login">Masuk</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="click_here">Klik disini</string>
@@ -38,4 +38,27 @@
     <string name="perhatikan_background">Perhatikan Background!</string>
     <string name="panduan_desc">Pastikan sampah berada di background yang bersih dan kontras ya!</string>
     <string name="panduan_foto">Panduan Foto</string>
+    <string name="camera">Kamera</string>
+    <string name="use_your_cam">Pakai kameramu sekarang untuk ambil foto sampah!</string>
+    <string name="gallery">Galeri</string>
+    <string name="get_photo_from_your_gallery">Ambil foto dari galerimu!</string>
+    <string name="title_leaderboards">Leaderboards</string>
+    <string name="no_data">No Data</string>
+    <string name="waste_classification_list">List Klasifikasi Sampah</string>
+    <string name="yes">Ya</string>
+    <string name="no">Tidak</string>
+    <string name="you_sure">Apakah kamu yakin ingin keluar?</string>
+    <string name="scan_with_what">Mau Scan Pakai Apa?</string>
+    <string name="preview">Pratinjau</string>
+    <string name="analyze">Analisis Foto</string>
+    <string name="result">Hasil</string>
+    <string name="title_recommendation">Rekomendasi terhadap sampah :</string>
+    <string name="title_your_trash_made_from">Sampah anda terbuat dari bahan</string>
+    <string name="made_from">%s</string>
+    <string name="recommendation">%s</string>
+    <string name="email">Email</string>
+    <string name="home">Beranda</string>
+    <string name="save">Simpan</string>
+    <string name="placeholder_waste_card_details2">Masih dapat dipakai ulang</string>
+    <string name="placeholder_waste_card_details1">Plastik 85%</string>
 </resources>

@@ -8,32 +8,18 @@
     tools:context=".ui.register.RegisterActivity"
     android:background="@color/white">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/backButton"
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="327dp"
-        android:background="@android:color/transparent"
-        android:outlineSpotShadowColor="@android:color/transparent"
-        app:icon="@drawable/ic_back"
-        app:iconSize="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.62"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/daftarTextView"
+        style="@style/manropeSemiBold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="40dp"
         android:text="@string/register"
         android:textSize="40sp"
-        style="@style/manropeSemiBold"
+        android:layout_marginTop="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.11"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/backButton" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/namaLengkapTextView"
@@ -41,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
-        android:text="@string/full_name"
+        android:text="@string/username"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/daftarTextView"
         style="@style/manropeRegular"/>
@@ -74,12 +60,12 @@
         app:boxCornerRadiusTopStart="13dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/namaLengkapEditText"
+            android:id="@+id/edt_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textEmailAddress"
-            android:textColor="@color/white"
+            android:inputType="text"
+            style="@style/manropeRegular"
             tools:ignore="SpeakableTextPresentCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -89,7 +75,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="10dp"
-        android:text="@string/username"
+        android:text="@string/email"
         style="@style/manropeRegular"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/namaLengkapEditTextLayout"/>
@@ -122,12 +108,12 @@
         app:boxCornerRadiusTopStart="13dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/usernameEditText"
+            android:id="@+id/edt_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textEmailAddress"
-            android:textColor="@color/white"
+            style="@style/manropeRegular"
             tools:ignore="SpeakableTextPresentCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -176,7 +162,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPassword"
-            android:textColor="@color/white"
+            style="@style/manropeRegular"
             tools:ignore="SpeakableTextPresentCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -226,7 +212,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPassword"
-            android:textColor="@color/white"
+            style="@style/manropeRegular"
             tools:ignore="SpeakableTextPresentCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -243,7 +229,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/konfirmasiPasswordEditTextLayout"
-        android:textColor="@color/yellow"
+        android:textColor="@color/white"
         app:backgroundTint="@color/green"
         app:cornerRadius="14dp"/>
 

@@ -17,10 +17,10 @@
         android:label="@string/title_location"
         tools:layout="@layout/fragment_location" />
     <fragment
-        android:id="@+id/navigation_mart"
-        android:name="com.capstonewahwah.wastify.ui.main.mart.MartFragment"
-        android:label="@string/title_mart"
-        tools:layout="@layout/fragment_mart" />
+        android:id="@+id/navigation_leaderboards"
+        android:name="com.capstonewahwah.wastify.ui.main.leaderboards.LeaderboardsFragment"
+        android:label="@string/title_leaderboards"
+        tools:layout="@layout/fragment_leaderboards" />
     <fragment
         android:id="@+id/navigation_classification"
         android:name="com.capstonewahwah.wastify.ui.main.classifications.ClassificationsFragment"
@@ -30,5 +30,36 @@
         android:id="@+id/navigation_scan1"
         android:name="com.capstonewahwah.wastify.ui.scan.ScanFragment1"
         android:label="fragment_scan1"
-        tools:layout="@layout/fragment_scan1" />
+        tools:layout="@layout/fragment_scan1" >
+        <action
+            android:id="@+id/action_navigation_scan1_to_scanFragment2"
+            app:destination="@id/navigation_scan2" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_scan2"
+        android:name="com.capstonewahwah.wastify.ui.scan.ScanFragment2"
+        android:label="fragment_scan2"
+        tools:layout="@layout/fragment_scan2" >
+        <action
+            android:id="@+id/action_navigation_scan2_to_navigation_preview"
+            app:destination="@id/navigation_preview" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_preview"
+        android:name="com.capstonewahwah.wastify.ui.scan.PreviewFragment"
+        android:label="fragment_preview"
+        tools:layout="@layout/fragment_preview" >
+        <argument
+            android:name="uri"
+            app:argType="string"
+            android:defaultValue="uri" />
+        <action
+            android:id="@+id/action_navigation_preview_to_resultFragment"
+            app:destination="@id/resultFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/resultFragment"
+        android:name="com.capstonewahwah.wastify.ui.scan.ResultFragment"
+        android:label="fragment_result"
+        tools:layout="@layout/fragment_result" />
 </navigation>

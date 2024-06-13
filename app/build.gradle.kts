@@ -1,6 +1,10 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("kotlin-parcelize")
+    id("androidx.navigation.safeargs")
+    id("com.google.devtools.ksp")
+    alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin)
 }
 
 android {
@@ -17,6 +21,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField("String", "NEWS_BASE_URL", "\"https://newsapi.org/v2/\"")
+        buildConfigField("String", "BASE_URL", "\"https://wastify-capstone-project.et.r.appspot.com/\"")
         buildConfigField("String", "NEWS_API_KEY", "\"0730bc50fc454b1c9f246f46a19e3c5b\"")
     }
 
@@ -52,6 +57,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.play.services.maps)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -61,4 +67,6 @@ dependencies {
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.skeletonlayout)
     implementation(libs.glide)
+    implementation(libs.androidx.activity.ktx)
+    implementation(libs.androidx.fragment.ktx)
 }

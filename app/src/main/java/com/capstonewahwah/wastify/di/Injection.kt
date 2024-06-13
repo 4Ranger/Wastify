@@ -9,7 +9,8 @@ import com.capstonewahwah.wastify.data.remote.retrofit.APIConfig
 object Injection {
     fun provideRepository(context: Context): Repository {
         val pref = UserPreference.getInstance(context.dataStore)
-        val apiService = APIConfig.getArticlesAPIService()
-        return Repository.getInstance(pref, apiService)
+        val articlesApiService = APIConfig.getArticlesAPIService()
+        val apiService = APIConfig.getAPIService()
+        return Repository.getInstance(pref, articlesApiService, apiService)
     }
 }
