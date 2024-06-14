@@ -55,10 +55,10 @@
             android:defaultValue="uri" />
         <action
             android:id="@+id/action_navigation_preview_to_resultFragment"
-            app:destination="@id/resultFragment" />
+            app:destination="@id/navigation_result" />
     </fragment>
     <fragment
-        android:id="@+id/resultFragment"
+        android:id="@+id/navigation_result"
         android:name="com.capstonewahwah.wastify.ui.scan.ResultFragment"
         android:label="fragment_result"
         tools:layout="@layout/fragment_result" />

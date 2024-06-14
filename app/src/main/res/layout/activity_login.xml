@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
-        android:text="@string/username"
+        android:text="@string/email"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_login"
         style="@style/manropeRegular"/>
@@ -75,7 +75,7 @@
         app:boxCornerRadiusTopStart="13dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edt_username"
+            android:id="@+id/edt_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -133,27 +133,43 @@
             tools:ignore="SpeakableTextPresentCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_login"
+    <FrameLayout
+        android:id="@+id/fl_login"
         android:layout_width="0dp"
         android:layout_height="64dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="32dp"
-        android:text="@string/login"
-        android:textSize="16sp"
-        style="@style/manropeSemiBold"
-        android:textColor="@color/white"
-        app:cornerRadius="14dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordEditTextLayout"
-        android:backgroundTint="@color/green"/>
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="16dp">
+
+        <ProgressBar
+            android:id="@+id/loader"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:translationZ="5dp"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/white"
+            android:visibility="gone"
+            tools:visibility="visible"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_login"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/login"
+            android:textSize="16sp"
+            style="@style/manropeSemiBold"
+            android:textColor="@color/white"
+            app:cornerRadius="14dp"
+            android:backgroundTint="@color/green"/>
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/btn_login"
+        app:layout_constraintTop_toBottomOf="@id/fl_login"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 

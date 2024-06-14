@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.capstonewahwah.wastify.data.local.pref.UserModel
 import com.capstonewahwah.wastify.data.local.pref.UserPreference
 import com.capstonewahwah.wastify.data.remote.response.ArticlesResponse
+import com.capstonewahwah.wastify.data.remote.response.LoginResponse
 import com.capstonewahwah.wastify.data.remote.response.RegisterResponse
 import com.capstonewahwah.wastify.data.remote.retrofit.APIService
 import kotlinx.coroutines.flow.Flow
@@ -30,17 +31,23 @@ class Repository private constructor(
         userPreference.logout()
     }
 
+    // Auth
+    private val _authLoading = MutableLiveData<Boolean>()
+    val authLoading: LiveData<Boolean> get() =  _authLoading
+
     // Register
     private val _register = MutableLiveData<RegisterResponse>()
     val register: LiveData<RegisterResponse> get() = _register
 
     fun register(username: String, email: String, password: String) {
+        _authLoading.value = true
         val client = apiService.register(username, email, password)
         client.enqueue(object : Callback<RegisterResponse> {
             override fun onResponse(
                 call: Call<RegisterResponse>,
                 response: Response<RegisterResponse>
             ) {
+                _authLoading.value = false
                 if (response.isSuccessful) {
                     _register.value = response.body()
                 } else {
@@ -49,6 +56,31 @@ class Repository private constructor(
             }
 
             override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
+                _authLoading.value = false
+                Log.e(TAG, "onFailure: ${t.message.toString()}")
+            }
+        })
+    }
+
+    // Login
+    private val _login = MutableLiveData<LoginResponse>()
+    val login: LiveData<LoginResponse> get() = _login
+
+    fun login(email: String, password: String) {
+        _authLoading.value = true
+        val client = apiService.login(email, password)
+        client.enqueue(object : Callback<LoginResponse> {
+            override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+                _authLoading.value = false
+                if (response.isSuccessful) {
+                    _login.value = response.body()
+                } else {
+                    Log.e(TAG, "onFailure: ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                _authLoading.value = false
                 Log.e(TAG, "onFailure: ${t.message.toString()}")
             }
         })

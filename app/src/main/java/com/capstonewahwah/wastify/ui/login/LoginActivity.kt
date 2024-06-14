@@ -2,6 +2,7 @@ package com.capstonewahwah.wastify.ui.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -38,20 +39,26 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.btnLogin.setOnClickListener {
-            if (binding.edtUsername.text.toString().trim().isEmpty()) {
-                binding.edtUsername.error = "Silahkan masukkan username anda terlebih dahulu"
+            if (binding.edtEmail.text.toString().trim().isEmpty()) {
+                binding.edtEmail.error = "Silahkan masukkan username anda terlebih dahulu"
             } else if (binding.edtPassword.text.toString().trim().isEmpty()) {
                 binding.edtPassword.error = "Silahkan masukkan password anda terlebih dahulu"
             } else {
                 // handle login
-                loginViewModel.saveSession(
-                    UserModel(
-                        "1212",
-                        binding.edtUsername.text.toString().trim(),
-                        "12312312",
-                        true
-                    )
+                loginViewModel.login(
+                    binding.edtEmail.text.toString().trim(),
+                    binding.edtPassword.text.toString().trim()
                 )
+
+                loginViewModel.login.observe(this) { user ->
+                    val session = UserModel(
+                        userId = user.loginResult.uid!!,
+                        name = user.loginResult.username!!,
+                        token = user.loginResult.token!!,
+                        isLoggedIn = true
+                    )
+                    loginViewModel.saveSession(session)
+                }
             }
         }
 
@@ -60,6 +67,20 @@ class LoginActivity : AppCompatActivity() {
                 startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                 finish()
             }
+        }
+
+        loginViewModel.authLoading.observe(this) { isLoading ->
+            setLoading(isLoading)
+        }
+    }
+
+    private fun setLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.btnLogin.text = ""
+            binding.loader.visibility = View.VISIBLE
+        } else {
+            binding.btnLogin.text = getString(R.string.login)
+            binding.loader.visibility = View.GONE
         }
     }
 }

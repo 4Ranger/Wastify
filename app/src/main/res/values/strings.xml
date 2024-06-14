@@ -42,7 +42,7 @@
     <string name="use_your_cam">Pakai kameramu sekarang untuk ambil foto sampah!</string>
     <string name="gallery">Galeri</string>
     <string name="get_photo_from_your_gallery">Ambil foto dari galerimu!</string>
-    <string name="title_leaderboards">Leaderboards</string>
+    <string name="title_leaderboards">Papan Peringkat</string>
     <string name="no_data">No Data</string>
     <string name="waste_classification_list">List Klasifikasi Sampah</string>
     <string name="yes">Ya</string>
@@ -61,4 +61,5 @@
     <string name="save">Simpan</string>
     <string name="placeholder_waste_card_details2">Masih dapat dipakai ulang</string>
     <string name="placeholder_waste_card_details1">Plastik 85%</string>
+    <string name="waste_collectors_location">Lokasi Pengepul</string>
 </resources>

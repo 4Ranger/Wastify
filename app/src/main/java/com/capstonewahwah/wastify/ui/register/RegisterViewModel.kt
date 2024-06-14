@@ -8,6 +8,7 @@ import com.capstonewahwah.wastify.data.remote.response.RegisterResponse
 class RegisterViewModel(private val repository: Repository) : ViewModel() {
 
     val register: LiveData<RegisterResponse> = repository.register
+    val authLoading: LiveData<Boolean> = repository.authLoading
 
     fun register(
         username: String,

@@ -1,6 +1,7 @@
 package com.capstonewahwah.wastify.ui.main.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -50,6 +51,11 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        mainViewModel.getSession().observe(viewLifecycleOwner) { user ->
+            binding?.tvUsername?.text = getString(R.string.username_home, user.name)
+            Log.d("Token", user.token)
+        }
 
         homeViewModel.articlesLoading.observe(viewLifecycleOwner) { isLoading ->
             if (isLoading) {

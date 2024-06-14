@@ -26,7 +26,9 @@
                 android:id="@+id/iv_profile"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:src="@tools:sample/avatars" />
+                android:src="@drawable/ic_user_placeholder"
+                android:background="@color/gray"
+                tools:ignore="ContentDescription" />
         </com.google.android.material.card.MaterialCardView>
 
         <TextView
