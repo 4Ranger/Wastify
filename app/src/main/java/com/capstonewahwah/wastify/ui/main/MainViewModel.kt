@@ -9,6 +9,13 @@ import com.capstonewahwah.wastify.data.local.pref.UserModel
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val repository: Repository) : ViewModel() {
+
+    fun saveSession(user: UserModel) {
+        viewModelScope.launch {
+            repository.saveSession(user)
+        }
+    }
+
     fun getSession(): LiveData<UserModel> {
         return repository.getSession().asLiveData()
     }

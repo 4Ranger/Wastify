@@ -8,4 +8,6 @@
     <color name="dark_gray">#606060</color>
     <color name="light_gray">#E3E2E2</color>
     <color name="yellow">#FFF67E</color>
+    <color name="spotlightBackground">#BF000000</color>
+    <color name="spotlightFinal">#D7416D19</color>
 </resources>

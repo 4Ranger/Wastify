@@ -43,9 +43,10 @@ class MainActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.navigation_scan1, R.id.navigation_scan2 -> {
+                R.id.navigation_profile, R.id.navigation_scan1, R.id.navigation_scan2 -> {
                     binding.cl.visibility = View.GONE
                 }
+                R.id.navigation_home -> binding.cl.visibility = View.VISIBLE
             }
         }
 

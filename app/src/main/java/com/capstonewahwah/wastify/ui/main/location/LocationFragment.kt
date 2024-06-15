@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.capstonewahwah.wastify.R
+import com.capstonewahwah.wastify.data.local.PengepulLocation
 import com.capstonewahwah.wastify.databinding.FragmentLocationBinding
 
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -14,6 +15,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
 
 class LocationFragment : Fragment() {
@@ -22,13 +24,36 @@ class LocationFragment : Fragment() {
     private val binding get() = _binding
 
     private lateinit var mMap: GoogleMap
+    private val boundsBuilder = LatLngBounds.Builder()
 
     private val callback = OnMapReadyCallback { googleMap ->
         mMap = googleMap
+        addPengepulLocation()
+    }
 
-        val medan = LatLng(3.547111, 98.655228)
-        googleMap.addMarker(MarkerOptions().position(medan).title("Marker in Medan"))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(medan))
+    private fun addPengepulLocation() {
+        val pengepulLocation = listOf(
+            PengepulLocation("Wastify 1", "Buka di jam 6-8", 3.547111, 98.655228),
+            PengepulLocation("Wastify 2", "Buka di jam 6-8", 3.592123, 98.731392),
+            PengepulLocation("Wastify 3", "Buka di jam 6-8", 3.577783, 98.653533),
+            PengepulLocation("Wastify 4", "Buka di jam 6-8", 3.524382, 98.658774),
+            PengepulLocation("Wastify 5", "Buka di jam 6-8", 3.628427, 98.671026),
+        )
+        pengepulLocation.forEach { pengepul ->
+            val latLng = LatLng(pengepul.latitude, pengepul.longitude)
+            mMap.addMarker(MarkerOptions().position(latLng).title(pengepul.name).snippet(pengepul.details))
+            boundsBuilder.include(latLng)
+        }
+
+        val bounds: LatLngBounds = boundsBuilder.build()
+        mMap.animateCamera(
+            CameraUpdateFactory.newLatLngBounds(
+                bounds,
+                resources.displayMetrics.widthPixels,
+                resources.displayMetrics.heightPixels,
+                300
+            )
+        )
     }
 
     override fun onCreateView(

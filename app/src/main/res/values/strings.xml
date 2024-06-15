@@ -62,4 +62,16 @@
     <string name="placeholder_waste_card_details2">Masih dapat dipakai ulang</string>
     <string name="placeholder_waste_card_details1">Plastik 85%</string>
     <string name="waste_collectors_location">Lokasi Pengepul</string>
+    <string name="change_password">Ubah Password</string>
+    <string name="congrats">Selamat! Kamu sudah tahu cara memakai Wastify!</string>
+    <string name="finish">Selesai</string>
+    <string name="target_details">target details</string>
+    <string name="spotlight_first_detail">Cari tahu artikel dan berita terkait sampah terbaru disini!</string>
+    <string name="second_spotlight_details">Klik di sini untuk mengetahui rankingmu!</string>
+    <string name="third_spotlight_details">Klik di sini untuk klasifikasi sampahmu!</string>
+    <string name="fourth_spotlight_details">Klik di sini untuk melihat data klasifikasi yang telah kamu simpan</string>
+    <string name="fifth_spotlight_details">Klik di sini untuk ketahui lokasi pengepul terdekatmu!</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>
+    <string name="change">Ubah</string>
 </resources>

@@ -9,7 +9,11 @@
         android:id="@+id/navigation_home"
         android:name="com.capstonewahwah.wastify.ui.main.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_profileFragment"
+            app:destination="@id/navigation_profile" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_location"
@@ -28,16 +32,16 @@
         tools:layout="@layout/fragment_classifications" />
     <fragment
         android:id="@+id/navigation_scan1"
-        android:name="com.capstonewahwah.wastify.ui.scan.ScanFragment1"
+        android:name="com.capstonewahwah.wastify.ui.main.scan.ScanFragment1"
         android:label="fragment_scan1"
         tools:layout="@layout/fragment_scan1" >
         <action
-            android:id="@+id/action_navigation_scan1_to_scanFragment2"
+            android:id="@+id/action_navigation_scan1_to_navigation_scan2"
             app:destination="@id/navigation_scan2" />
     </fragment>
     <fragment
         android:id="@+id/navigation_scan2"
-        android:name="com.capstonewahwah.wastify.ui.scan.ScanFragment2"
+        android:name="com.capstonewahwah.wastify.ui.main.scan.ScanFragment2"
         android:label="fragment_scan2"
         tools:layout="@layout/fragment_scan2" >
         <action
@@ -46,7 +50,7 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_preview"
-        android:name="com.capstonewahwah.wastify.ui.scan.PreviewFragment"
+        android:name="com.capstonewahwah.wastify.ui.main.scan.PreviewFragment"
         android:label="fragment_preview"
         tools:layout="@layout/fragment_preview" >
         <argument
@@ -54,12 +58,38 @@
             app:argType="string"
             android:defaultValue="uri" />
         <action
-            android:id="@+id/action_navigation_preview_to_resultFragment"
+            android:id="@+id/action_navigation_preview_to_navigation_result"
             app:destination="@id/navigation_result" />
     </fragment>
     <fragment
         android:id="@+id/navigation_result"
-        android:name="com.capstonewahwah.wastify.ui.scan.ResultFragment"
+        android:name="com.capstonewahwah.wastify.ui.main.scan.ResultFragment"
         android:label="fragment_result"
-        tools:layout="@layout/fragment_result" />
+        tools:layout="@layout/fragment_result" >
+        <argument
+            android:name="image"
+            app:argType="string"
+            android:defaultValue="image" />
+        <argument
+            android:name="predictedClass"
+            app:argType="string"
+            android:defaultValue="predictedClass" />
+        <argument
+            android:name="recommendations"
+            app:argType="string"
+            android:defaultValue="recommendations" />
+        <action
+            android:id="@+id/action_navigation_result_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.capstonewahwah.wastify.ui.main.home.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <argument
+            android:name="username"
+            app:argType="string"
+            android:defaultValue="username" />
+    </fragment>
 </navigation>

@@ -5,56 +5,174 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.GridLayoutManager
 import com.capstonewahwah.wastify.R
+import com.capstonewahwah.wastify.adapters.HistoryAdapter
+import com.capstonewahwah.wastify.data.remote.response.HistoryResponse
+import com.capstonewahwah.wastify.data.remote.response.HistoryResponseItem
+import com.capstonewahwah.wastify.data.remote.response.Prediction
+import com.capstonewahwah.wastify.data.remote.response.Recommendations1
+import com.capstonewahwah.wastify.data.remote.response.Timestamp
+import com.capstonewahwah.wastify.databinding.FragmentClassificationsBinding
+import com.capstonewahwah.wastify.helper.ViewModelFactory
+import com.capstonewahwah.wastify.ui.main.MainViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [ClassificationsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ClassificationsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var _binding: FragmentClassificationsBinding? = null
+    private val binding get() = _binding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    private val mainViewModel by activityViewModels<MainViewModel> {
+        ViewModelFactory.getInstance(requireContext())
+    }
+
+    private val classificationsViewModel by viewModels<ClassificationsViewModel> {
+        ViewModelFactory.getInstance(requireContext())
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_classifications, container, false)
+        _binding = FragmentClassificationsBinding.inflate(inflater, container, false)
+        return binding?.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ClassificationsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ClassificationsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onResume() {
+        super.onResume()
+        mainViewModel.getSession().observe(viewLifecycleOwner) { user ->
+            classificationsViewModel.getHistories(user.token)
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding?.rvWaste?.layoutManager = GridLayoutManager(requireContext(), 2)
+
+        classificationsViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) {
+                val dummyResponse = listOf(
+                    HistoryResponseItem(
+                        id = "abcd1234",
+                        imageUrl = "https://example.com/image.jpg",
+                        prediction = Prediction(
+                            class0 = 0.1,
+                            class2 = 0.2,
+                            class1 = 0.15,
+                            class4 = 0.25,
+                            class3 = 0.1,
+                            class5 = 0.2
+                        ),
+                        predictedClass = "plastik",
+                        recommendations = Recommendations1(
+                            reduce = "Reduce plastic usage by buying in bulk or larger packages.",
+                            reuse = "Reuse plastic bottles, containers, and bags for storage or other purposes.",
+                            refuse = "Refuse single-use plastics. Use reusable shopping bags and refillable water bottles.",
+                            rot = "Plastic cannot be composted, but try to choose biodegradable products when possible.",
+                            repurpose = "Get creative and repurpose plastic bottles into planters or crafts.",
+                            recycle = "Separate plastics by type and recycle them through your local recycling program."
+                        ),
+                        timestamp = Timestamp(
+                            nanoseconds = 123456789,
+                            seconds = 1618928712
+                        )
+                    ),
+                    HistoryResponseItem(
+                        id = "abcd1234",
+                        imageUrl = "https://example.com/image.jpg",
+                        prediction = Prediction(
+                            class0 = 0.1,
+                            class2 = 0.2,
+                            class1 = 0.15,
+                            class4 = 0.25,
+                            class3 = 0.1,
+                            class5 = 0.2
+                        ),
+                        predictedClass = "plastik",
+                        recommendations = Recommendations1(
+                            reduce = "Reduce plastic usage by buying in bulk or larger packages.",
+                            reuse = "Reuse plastic bottles, containers, and bags for storage or other purposes.",
+                            refuse = "Refuse single-use plastics. Use reusable shopping bags and refillable water bottles.",
+                            rot = "Plastic cannot be composted, but try to choose biodegradable products when possible.",
+                            repurpose = "Get creative and repurpose plastic bottles into planters or crafts.",
+                            recycle = "Separate plastics by type and recycle them through your local recycling program."
+                        ),
+                        timestamp = Timestamp(
+                            nanoseconds = 123456789,
+                            seconds = 1618928712
+                        )
+                    ),
+                    HistoryResponseItem(
+                        id = "abcd1234",
+                        imageUrl = "https://example.com/image.jpg",
+                        prediction = Prediction(
+                            class0 = 0.1,
+                            class2 = 0.2,
+                            class1 = 0.15,
+                            class4 = 0.25,
+                            class3 = 0.1,
+                            class5 = 0.2
+                        ),
+                        predictedClass = "plastik",
+                        recommendations = Recommendations1(
+                            reduce = "Reduce plastic usage by buying in bulk or larger packages.",
+                            reuse = "Reuse plastic bottles, containers, and bags for storage or other purposes.",
+                            refuse = "Refuse single-use plastics. Use reusable shopping bags and refillable water bottles.",
+                            rot = "Plastic cannot be composted, but try to choose biodegradable products when possible.",
+                            repurpose = "Get creative and repurpose plastic bottles into planters or crafts.",
+                            recycle = "Separate plastics by type and recycle them through your local recycling program."
+                        ),
+                        timestamp = Timestamp(
+                            nanoseconds = 123456789,
+                            seconds = 1618928712
+                        )
+                    ),
+                    HistoryResponseItem(
+                        id = "abcd1234",
+                        imageUrl = "https://example.com/image.jpg",
+                        prediction = Prediction(
+                            class0 = 0.1,
+                            class2 = 0.2,
+                            class1 = 0.15,
+                            class4 = 0.25,
+                            class3 = 0.1,
+                            class5 = 0.2
+                        ),
+                        predictedClass = "plastik",
+                        recommendations = Recommendations1(
+                            reduce = "Reduce plastic usage by buying in bulk or larger packages.",
+                            reuse = "Reuse plastic bottles, containers, and bags for storage or other purposes.",
+                            refuse = "Refuse single-use plastics. Use reusable shopping bags and refillable water bottles.",
+                            rot = "Plastic cannot be composted, but try to choose biodegradable products when possible.",
+                            repurpose = "Get creative and repurpose plastic bottles into planters or crafts.",
+                            recycle = "Separate plastics by type and recycle them through your local recycling program."
+                        ),
+                        timestamp = Timestamp(
+                            nanoseconds = 123456789,
+                            seconds = 1618928712
+                        )
+                    )
+                )
+                loadHistory(dummyResponse)
+            } else {
+                classificationsViewModel.histories.observe(viewLifecycleOwner) { histories ->
+                    loadHistory(histories)
                 }
             }
+        }
+    }
+
+    private fun loadHistory(history: List<HistoryResponseItem>) {
+        classificationsViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            val adapter = HistoryAdapter(isLoading)
+            adapter.submitList(history)
+            binding?.rvWaste?.adapter = adapter
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

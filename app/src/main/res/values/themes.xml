@@ -53,5 +53,16 @@
         <item name="textAllCaps">false</item>
     </style>
 
+    <style name="custom_input" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="android:textColorHint">@color/green</item>
+        <item name="hintTextColor">@color/green</item>
+        <item name="boxStrokeColor">@color/ti_box_stroke</item>
+        <item name="boxStrokeWidth">2dp</item>
+        <item name="boxCornerRadiusBottomEnd">14dp</item>
+        <item name="boxCornerRadiusBottomStart">14dp</item>
+        <item name="boxCornerRadiusTopEnd">14dp</item>
+        <item name="boxCornerRadiusTopStart">14dp</item>
+    </style>
+
     <style name="Theme.Wastify" parent="Base.Theme.Wastify" />
 </resources>

@@ -1,4 +1,4 @@
-package com.capstonewahwah.wastify.ui.scan
+package com.capstonewahwah.wastify.ui.main.scan
 
 import android.os.Bundle
 import android.view.Gravity
@@ -34,7 +34,7 @@ class ScanFragment1 : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding?.tvStart?.setOnClickListener{
-            val toScanFragment2 = ScanFragment1Directions.actionNavigationScan1ToScanFragment2()
+            val toScanFragment2 = ScanFragment1Directions.actionNavigationScan1ToNavigationScan2()
             it.findNavController().navigate(toScanFragment2)
         }
     }

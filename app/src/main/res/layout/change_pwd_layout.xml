@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="350dp"
+    android:layout_height="350dp"
+    android:backgroundTint="@color/white"
+    android:layout_gravity="center"
+    app:cardCornerRadius="30dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/green"
+            android:text="@string/change_password"
+            style="@style/manropeMedium"
+            android:textSize="12sp"
+            android:textColor="@color/white"
+            android:gravity="center" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_old_pwd"
+            style="@style/custom_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/old_password"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="50dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_old_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ems="20"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                style="@style/manropeRegular"
+                android:textColor="@color/green"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_new_pwd"
+            style="@style/custom_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/new_password"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="10dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_new_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ems="20"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                style="@style/manropeRegular"
+                android:textColor="@color/green"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_change"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/change"
+            style="@style/manropeBold"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/green"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="50dp"
+            app:cornerRadius="14dp"/>
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

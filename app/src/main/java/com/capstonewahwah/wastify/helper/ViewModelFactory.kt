@@ -7,8 +7,12 @@ import com.capstonewahwah.wastify.data.Repository
 import com.capstonewahwah.wastify.di.Injection
 import com.capstonewahwah.wastify.ui.login.LoginViewModel
 import com.capstonewahwah.wastify.ui.main.MainViewModel
+import com.capstonewahwah.wastify.ui.main.classifications.ClassificationsViewModel
 import com.capstonewahwah.wastify.ui.main.home.HomeViewModel
+import com.capstonewahwah.wastify.ui.main.home.profile.ProfileViewModel
+import com.capstonewahwah.wastify.ui.main.leaderboards.LeaderboardsViewModel
 import com.capstonewahwah.wastify.ui.register.RegisterViewModel
+import com.capstonewahwah.wastify.ui.main.scan.ScanViewModel
 
 class ViewModelFactory(private val repository: Repository) : ViewModelProvider.NewInstanceFactory() {
     @Suppress("UNCHECKED_CAST")
@@ -25,6 +29,18 @@ class ViewModelFactory(private val repository: Repository) : ViewModelProvider.N
             }
             modelClass.isAssignableFrom(RegisterViewModel::class.java) -> {
                 RegisterViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(ScanViewModel::class.java) -> {
+                ScanViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(LeaderboardsViewModel::class.java) -> {
+                LeaderboardsViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(ClassificationsViewModel::class.java) -> {
+                ClassificationsViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
+                ProfileViewModel(repository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel Class: " + modelClass.name)
         }

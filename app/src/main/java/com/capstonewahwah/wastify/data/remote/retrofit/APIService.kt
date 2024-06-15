@@ -2,13 +2,25 @@ package com.capstonewahwah.wastify.data.remote.retrofit
 
 import com.capstonewahwah.wastify.BuildConfig
 import com.capstonewahwah.wastify.data.remote.response.ArticlesResponse
+import com.capstonewahwah.wastify.data.remote.response.EditProfileResponse
+import com.capstonewahwah.wastify.data.remote.response.HistoryResponse
+import com.capstonewahwah.wastify.data.remote.response.HistoryResponseItem
+import com.capstonewahwah.wastify.data.remote.response.LeaderboardsResponse
 import com.capstonewahwah.wastify.data.remote.response.LoginResponse
+import com.capstonewahwah.wastify.data.remote.response.PredictResponse
 import com.capstonewahwah.wastify.data.remote.response.RegisterResponse
+import com.capstonewahwah.wastify.data.remote.response.UserDetailsResponse
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
+import retrofit2.http.Header
+import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.PUT
+import retrofit2.http.Part
 
 interface APIService {
 
@@ -21,12 +33,47 @@ interface APIService {
         @Field("password") password: String
     ): Call<RegisterResponse>
 
+    // Login
     @FormUrlEncoded
     @POST("auth/login")
     fun login(
         @Field("email") email: String,
         @Field("password") password: String
     ): Call<LoginResponse>
+
+    // Predict
+    @Multipart
+    @POST("predict/image")
+    fun predict(
+        @Header("Authorization") token: String,
+        @Part image: MultipartBody.Part
+    ): Call<PredictResponse>
+
+    // Prediction Histories
+    @GET("predict/history")
+    fun getHistories(
+        @Header("Authorization") token: String
+    ): Call<List<HistoryResponseItem>>
+
+    // User Details
+    @GET("auth/profile")
+    fun getUserDetails(
+        @Header("Authorization") token: String
+    ): Call<UserDetailsResponse>
+
+    // Edit Profile Image
+    @Multipart
+    @PUT("auth/editProfile")
+    fun editProfile(
+        @Header("Authorization") token: String,
+        @Part("username") username: RequestBody,
+        @Part("email") email: RequestBody,
+        @Part file: MultipartBody.Part
+    ): Call<EditProfileResponse>
+
+    // Leaderboards
+    @GET("auth/leaderboard")
+    fun getLeaderboards(): Call<LeaderboardsResponse>
 
     // Articles
     @GET("everything?q=waste%20trash&sortBy=relevancy&pageSize=10&apiKey=${BuildConfig.NEWS_API_KEY}")

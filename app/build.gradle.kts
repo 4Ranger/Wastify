@@ -69,4 +69,5 @@ dependencies {
     implementation(libs.glide)
     implementation(libs.androidx.activity.ktx)
     implementation(libs.androidx.fragment.ktx)
+    implementation("com.github.takusemba:spotlight:2.0.5")
 }
