@@ -10,8 +10,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.capstonewahwah.wastify.R
 import com.capstonewahwah.wastify.databinding.ActivityMainBinding
@@ -58,6 +56,8 @@ class MainActivity : AppCompatActivity() {
             if (!user.isLoggedIn) {
                 startActivity(Intent(this@MainActivity, WelcomeActivity::class.java))
                 finish()
+            } else {
+                mainViewModel.getArticles()
             }
         }
     }
@@ -78,6 +78,7 @@ class MainActivity : AppCompatActivity() {
 
                     yesBtn.setOnClickListener {
                         mainViewModel.logout()
+                        mainViewModel.deleteUserData()
                         alertDialog.dismiss()
                     }
 

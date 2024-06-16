@@ -8,8 +8,6 @@
     <string name="title_mart">Mart</string>
     <string name="title_classifications">Classifications List</string>
     <string name="title_location">Location</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="welcome_banner">Welcome Banner</string>
     <string name="login_wastify">Login with Wastify Account</string>
     <string name="login_google">Login with Google Account</string>
@@ -71,7 +69,8 @@
     <string name="third_spotlight_details">Klik di sini untuk klasifikasi sampahmu!</string>
     <string name="fourth_spotlight_details">Klik di sini untuk melihat data klasifikasi yang telah kamu simpan</string>
     <string name="fifth_spotlight_details">Klik di sini untuk ketahui lokasi pengepul terdekatmu!</string>
-    <string name="old_password">Old Password</string>
-    <string name="new_password">New Password</string>
+    <string name="old_password">Password Lama</string>
+    <string name="new_password">Password Baru</string>
     <string name="change">Ubah</string>
+    <string name="rank">%d</string>
 </resources>

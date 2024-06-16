@@ -31,6 +31,12 @@ data class LeaderboardItem(
 	@field:SerializedName("createdAt")
 	val createdAt: CreatedAt1,
 
+	@field:SerializedName("historyPoints")
+	val historyPoints: Int,
+
+	@field:SerializedName("rank")
+	val rank: Int,
+
 	@field:SerializedName("historyCount")
 	val historyCount: Int,
 

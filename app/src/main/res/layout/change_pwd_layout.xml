@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="350dp"
     android:layout_height="350dp"
+    xmlns:tools="http://schemas.android.com/tools"
     android:backgroundTint="@color/white"
     android:layout_gravity="center"
     app:cardCornerRadius="30dp">
@@ -63,17 +63,34 @@
                 android:textColor="@color/green"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_change"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:text="@string/change"
-            style="@style/manropeBold"
-            android:textColor="@color/white"
-            android:backgroundTint="@color/green"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="50dp"
-            app:cornerRadius="14dp"/>
+            android:layout_marginBottom="10dp">
+
+            <ProgressBar
+                android:id="@+id/loader"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:translationZ="5dp"
+                android:layout_gravity="center"
+                android:indeterminateTint="@color/white"
+                android:visibility="gone"
+                tools:visibility="visible"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_change"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/change"
+                style="@style/manropeBold"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/green"
+                app:cornerRadius="14dp"/>
+        </FrameLayout>
+
     </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>

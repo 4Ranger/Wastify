@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.transition.Fade
 import com.capstonewahwah.wastify.adapters.LeaderboardsAdapter
 import com.capstonewahwah.wastify.data.remote.response.CreatedAt1
 import com.capstonewahwah.wastify.data.remote.response.LeaderboardItem
@@ -21,6 +22,12 @@ class LeaderboardsFragment : Fragment() {
 
     private val leaderboardsViewModel by viewModels<LeaderboardsViewModel> {
         ViewModelFactory.getInstance(requireContext())
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enterTransition = Fade()
+        exitTransition = Fade()
     }
 
     override fun onResume() {
@@ -52,9 +59,11 @@ class LeaderboardsFragment : Fragment() {
                                 seconds = 1618214711
                             ),
                             historyCount = 3,
+                            historyPoints = 30,
                             email = "john@example.com",
                             username = "JohnDoe",
                             profilePhotoUrl = "https://example.com/profile.jpg",
+                            rank = 1,
                             history = listOf("game1", "game2", "game3")
                         ),
                         LeaderboardItem(
@@ -64,9 +73,11 @@ class LeaderboardsFragment : Fragment() {
                                 seconds = 1618246483
                             ),
                             historyCount = 2,
+                            historyPoints = 69,
                             email = "jane@example.com",
                             username = "JaneDoe",
                             profilePhotoUrl = "",
+                            rank = 2,
                             history = listOf("game4", "game5")
                         ),
                         LeaderboardItem(
@@ -76,9 +87,11 @@ class LeaderboardsFragment : Fragment() {
                                 seconds = 1618348343
                             ),
                             historyCount = 1,
+                            historyPoints = 64,
                             email = "bob@example.com",
                             username = "BobSmith",
                             profilePhotoUrl = "",
+                            rank = 3,
                             history = listOf("game6")
                         )
                     ),

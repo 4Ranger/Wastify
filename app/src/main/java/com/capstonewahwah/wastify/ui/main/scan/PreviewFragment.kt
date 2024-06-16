@@ -100,7 +100,13 @@ class PreviewFragment : Fragment() {
     }
 
     private fun setLoading(isLoading: Boolean) {
-        binding?.loader?.visibility = if (isLoading) View.VISIBLE else View.GONE
+        if (isLoading) {
+            binding?.btnAnalyze?.text = ""
+            binding?.loader?.visibility = View.VISIBLE
+        } else {
+            binding?.btnAnalyze?.text = getString(R.string.analyze)
+            binding?.loader?.visibility = View.GONE
+        }
     }
 
     override fun onDestroyView() {

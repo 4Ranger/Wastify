@@ -93,5 +93,13 @@
             android:name="username"
             app:argType="string"
             android:defaultValue="username" />
+        <argument
+            android:name="token"
+            app:argType="string"
+            android:defaultValue="token" />
+        <argument
+            android:name="email"
+            app:argType="string"
+            android:defaultValue="email" />
     </fragment>
 </navigation>

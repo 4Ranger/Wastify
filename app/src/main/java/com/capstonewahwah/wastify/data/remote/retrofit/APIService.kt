@@ -2,6 +2,7 @@ package com.capstonewahwah.wastify.data.remote.retrofit
 
 import com.capstonewahwah.wastify.BuildConfig
 import com.capstonewahwah.wastify.data.remote.response.ArticlesResponse
+import com.capstonewahwah.wastify.data.remote.response.ChangePwdResponse
 import com.capstonewahwah.wastify.data.remote.response.EditProfileResponse
 import com.capstonewahwah.wastify.data.remote.response.HistoryResponse
 import com.capstonewahwah.wastify.data.remote.response.HistoryResponseItem
@@ -70,6 +71,16 @@ interface APIService {
         @Part("email") email: RequestBody,
         @Part file: MultipartBody.Part
     ): Call<EditProfileResponse>
+
+    // Change Password
+    @FormUrlEncoded
+    @POST("auth/changePassword")
+    fun changePwd(
+        @Header("Authorization") token: String,
+        @Field("email") email: String,
+        @Field("oldPassword") oldPassword: String,
+        @Field("newPassword") newPassword: String
+    ): Call<ChangePwdResponse>
 
     // Leaderboards
     @GET("auth/leaderboard")

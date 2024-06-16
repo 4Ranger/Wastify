@@ -1,11 +1,13 @@
 package com.capstonewahwah.wastify.ui.main.scan
 
 import android.os.Bundle
+import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.transition.Slide
 import com.bumptech.glide.Glide
 import com.capstonewahwah.wastify.R
 import com.capstonewahwah.wastify.data.remote.response.PredictResponse
@@ -17,6 +19,12 @@ class ResultFragment : Fragment() {
 
     private var _binding: FragmentResultBinding? = null
     private val binding get() = _binding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enterTransition = Slide(Gravity.END)
+        exitTransition = Slide(Gravity.TOP)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

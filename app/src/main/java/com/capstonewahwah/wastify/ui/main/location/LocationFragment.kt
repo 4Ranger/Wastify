@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.transition.Fade
 import com.capstonewahwah.wastify.R
 import com.capstonewahwah.wastify.data.local.PengepulLocation
 import com.capstonewahwah.wastify.databinding.FragmentLocationBinding
@@ -38,6 +39,7 @@ class LocationFragment : Fragment() {
             PengepulLocation("Wastify 3", "Buka di jam 6-8", 3.577783, 98.653533),
             PengepulLocation("Wastify 4", "Buka di jam 6-8", 3.524382, 98.658774),
             PengepulLocation("Wastify 5", "Buka di jam 6-8", 3.628427, 98.671026),
+            PengepulLocation("Wastify 6", "Buka di jam 6-8", -7.273057, 112.792000),
         )
         pengepulLocation.forEach { pengepul ->
             val latLng = LatLng(pengepul.latitude, pengepul.longitude)
@@ -54,6 +56,12 @@ class LocationFragment : Fragment() {
                 300
             )
         )
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enterTransition = Fade()
+        exitTransition = Fade()
     }
 
     override fun onCreateView(

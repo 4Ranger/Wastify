@@ -69,5 +69,9 @@ dependencies {
     implementation(libs.glide)
     implementation(libs.androidx.activity.ktx)
     implementation(libs.androidx.fragment.ktx)
-    implementation("com.github.takusemba:spotlight:2.0.5")
+    implementation(libs.spotlight)
+    implementation(libs.androidx.swiperefreshlayout)
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
 }

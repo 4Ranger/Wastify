@@ -8,20 +8,19 @@ import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
 import android.widget.FrameLayout
 import android.widget.TextView
-import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
-import androidx.core.view.marginTop
-import androidx.core.view.setPadding
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.transition.Fade
+import com.bumptech.glide.Glide
 import com.capstonewahwah.wastify.R
 import com.capstonewahwah.wastify.adapters.ArticleAdapter
-import com.capstonewahwah.wastify.data.local.pref.UserModel
+import com.capstonewahwah.wastify.data.local.pref.UserData
 import com.capstonewahwah.wastify.data.remote.response.ArticlesItem
 import com.capstonewahwah.wastify.data.remote.response.ArticlesResponse
 import com.capstonewahwah.wastify.data.remote.response.Source
@@ -49,6 +48,12 @@ class HomeFragment : Fragment() {
         ViewModelFactory.getInstance(requireContext())
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enterTransition = Fade()
+        exitTransition = Fade()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -61,42 +66,56 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         mainViewModel.getSession().observe(viewLifecycleOwner) { user ->
-            if (user.isLoggedIn) {
-                homeViewModel.getArticles()
-//                homeViewModel.getUserDetails(user.token)
-//
-//                homeViewModel.userDetails.observe(viewLifecycleOwner) { newUserData ->
-//                    val newUserDataToSave = UserModel(
-//                        userId = newUserData.uid,
-//                        name = newUserData.username,
-//                        token = user.token,
-//                        email = newUserData.email,
-//                        historyAndPoints = newUserData.history.size,
-//                        isLoggedIn = true
-//                    )
-//                    mainViewModel.saveSession(newUserDataToSave)
-//                }
-            }
+            mainViewModel.getUserDetails(user.token)
         }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mainViewModel.getSession().observe(viewLifecycleOwner) { user ->
-            binding?.tvUsername?.text = getString(R.string.username_home, user.username)
-            binding?.tvPointDetails?.text = getString(R.string.user_point, user.points)
-            binding?.tvTrashDetails?.text = getString(R.string.waste_amount, user.history)
-            Log.d("Token", user.token)
+        mainViewModel.userDetails.observe(viewLifecycleOwner) { userDetails ->
+            val userData = UserData(
+                email = userDetails.login.email,
+                trashScanned = userDetails.login.historyCount,
+                points = userDetails.login.historyPoints,
+                photoUrl = userDetails.login.photoURL
+            )
+            mainViewModel.saveUserData(userData)
+        }
 
-            binding?.cvProfile?.setOnClickListener {
-                val extras = FragmentNavigatorExtras(
-                    binding?.cvProfile!! to "userProfileDetail",
-                    binding?.tvUsername!! to "userNameDetail"
-                )
-                val toProfileFragment = HomeFragmentDirections.actionNavigationHomeToProfileFragment()
-                toProfileFragment.username = user.username
-                findNavController().navigate(toProfileFragment, extras)
+        mainViewModel.getSession().observe(viewLifecycleOwner) { user ->
+            if (user.isLoggedIn) {
+                binding?.tvUsername?.text = getString(R.string.username_home, user.username)
+                Log.d("Token", user.token)
+
+                mainViewModel.getUserData().observe(viewLifecycleOwner) { userData ->
+                    if (userData.photoUrl != null) {
+                        Glide.with(requireContext())
+                            .load(userData.photoUrl)
+                            .into(binding?.ivProfile!!)
+                    } else binding?.ivProfile?.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_user_placeholder))
+
+                    binding?.tvPointDetails?.text = getString(R.string.user_point, userData.points)
+                    binding?.tvTrashDetails?.text = getString(R.string.waste_amount, userData.trashScanned)
+
+                    binding?.cvProfile?.setOnClickListener {
+                        val extras = FragmentNavigatorExtras(
+                            binding?.cvProfile!! to "userProfileDetail",
+                            binding?.tvUsername!! to "userNameDetail"
+                        )
+                        val toProfileFragment = HomeFragmentDirections.actionNavigationHomeToProfileFragment()
+                        toProfileFragment.username = user.username
+                        toProfileFragment.token = user.token
+                        toProfileFragment.email = userData.email
+                        findNavController().navigate(toProfileFragment, extras)
+                    }
+                }
+
+                binding?.swipeRefrshLayout?.setOnRefreshListener {
+                    binding?.swipeRefrshLayout?.isRefreshing = true
+                    mainViewModel.getArticles()
+                    mainViewModel.getUserDetails(user.token)
+                }
             }
         }
 
@@ -136,12 +155,17 @@ class HomeFragment : Fragment() {
                 )
                 loadArticles(dummyArticlesData)
             } else {
+                binding?.swipeRefrshLayout?.isRefreshing = false
                 homeViewModel.articles.observe(viewLifecycleOwner) { article ->
                     loadArticles(article)
                 }
             }
 
             binding?.cvHelp?.setOnClickListener {
+
+                binding?.scrollView?.isSmoothScrollingEnabled = true
+                binding?.scrollView?.scrollToDescendant(binding?.rvArticles!!)
+
                 val targets = ArrayList<Target>()
 
                 val firstRoot = FrameLayout(requireContext())
@@ -149,7 +173,11 @@ class HomeFragment : Fragment() {
                 val tvFirstDetails: TextView = first.findViewById(R.id.tv_spotlight_details)
                 val firstTarget = Target.Builder()
                     .setAnchor(binding?.rvArticles!!)
-                    .setShape(RoundedRectangle(700f, resources.displayMetrics.widthPixels.toFloat(), 20f))
+                    .setShape(RoundedRectangle(
+                        binding?.rvArticles?.height!!.toFloat(),
+                        resources.displayMetrics.widthPixels.toFloat(),
+                        20f
+                    ))
                     .setOverlay(first)
                     .setOnTargetListener(object : OnTargetListener{
                         override fun onEnded() {
@@ -158,6 +186,12 @@ class HomeFragment : Fragment() {
 
                         override fun onStarted() {
                             tvFirstDetails.text = getString(R.string.spotlight_first_detail)
+                            tvFirstDetails.setPadding(
+                                0,
+                                0,
+                                0,
+                                binding?.rvArticles?.height!! * 2
+                            )
                         }
                     })
                     .build()
@@ -178,7 +212,12 @@ class HomeFragment : Fragment() {
 
                         override fun onStarted() {
                             tvSecondDetails.text = getString(R.string.second_spotlight_details)
-                            tvSecondDetails.setPadding(0, 400, 0, 0)
+                            tvSecondDetails.setPadding(
+                                0,
+                                0,
+                                0,
+                                92 * 3
+                            )
                         }
                     })
                     .build()
@@ -199,7 +238,12 @@ class HomeFragment : Fragment() {
 
                         override fun onStarted() {
                             tvThirdDetails.text = getString(R.string.third_spotlight_details)
-                            tvThirdDetails.setPadding(0, 600, 0, 0)
+                            tvThirdDetails.setPadding(
+                                0,
+                                0,
+                                0,
+                                92 * 3
+                            )
                         }
                     })
                     .build()
@@ -220,7 +264,12 @@ class HomeFragment : Fragment() {
 
                         override fun onStarted() {
                             tvFourthDetails.text = getString(R.string.fourth_spotlight_details)
-                            tvFourthDetails.setPadding(0, 400, 0, 0)
+                            tvFourthDetails.setPadding(
+                                0,
+                                0,
+                                0,
+                                92 * 3
+                            )
                         }
                     })
                     .build()
@@ -241,7 +290,12 @@ class HomeFragment : Fragment() {
 
                         override fun onStarted() {
                             tvFifthDetails.text = getString(R.string.fifth_spotlight_details)
-                            tvFifthDetails.setPadding(0, 600, 0, 0)
+                            tvFifthDetails.setPadding(
+                                0,
+                                0,
+                                0,
+                                92 * 3
+                            )
                         }
                     })
                     .build()
@@ -269,7 +323,7 @@ class HomeFragment : Fragment() {
                 val spotlight = Spotlight.Builder(requireActivity())
                     .setTargets(targets)
                     .setBackgroundColorRes(R.color.spotlightBackground)
-                    .setDuration(1000L)
+                    .setDuration(500L)
                     .setAnimation(DecelerateInterpolator(2f))
                     .setOnSpotlightListener(object : OnSpotlightListener {
                         override fun onEnded() {
@@ -309,6 +363,7 @@ class HomeFragment : Fragment() {
 
             yesBtn.setOnClickListener {
                 mainViewModel.logout()
+                mainViewModel.deleteUserData()
                 alertDialog.dismiss()
             }
 

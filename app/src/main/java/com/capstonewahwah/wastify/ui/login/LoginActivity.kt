@@ -3,6 +3,7 @@ package com.capstonewahwah.wastify.ui.login
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -76,6 +77,10 @@ class LoginActivity : AppCompatActivity() {
 
         loginViewModel.authLoading.observe(this) { isLoading ->
             setLoading(isLoading)
+        }
+
+        loginViewModel.response.observe(this) { response ->
+            Toast.makeText(this, "${response.code} - ${response.message}", Toast.LENGTH_SHORT).show()
         }
     }
 

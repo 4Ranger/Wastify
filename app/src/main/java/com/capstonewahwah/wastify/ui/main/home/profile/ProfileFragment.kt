@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -21,6 +23,7 @@ import com.capstonewahwah.wastify.helper.Utils.uriToFile
 import com.capstonewahwah.wastify.helper.ViewModelFactory
 import com.capstonewahwah.wastify.ui.main.MainViewModel
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.textfield.TextInputEditText
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -71,36 +74,68 @@ class ProfileFragment : Fragment() {
                 .setView(customLayout)
 
             val changepwdBtn = customLayout.findViewById<MaterialButton>(R.id.btn_change)
+            val edtOldPwd = customLayout.findViewById<TextInputEditText>(R.id.edt_old_pwd)
+            val edtNewPwd = customLayout.findViewById<TextInputEditText>(R.id.edt_new_pwd)
+            val loader = customLayout.findViewById<ProgressBar>(R.id.loader)
 
             val alertDialog = alertDialogBuilder.create()
             alertDialog.show()
 
             changepwdBtn.setOnClickListener {
-                Toast.makeText(requireContext(), "yay", Toast.LENGTH_SHORT).show()
-                alertDialog.dismiss()
+                if (edtOldPwd.text.toString().trim().isEmpty()) {
+                    edtOldPwd.error = "Masukkan password lama anda terlebih dahulu"
+                } else if (edtNewPwd.text.toString().trim().isEmpty()) {
+                    edtNewPwd.error = "Masukkan password baru anda"
+                } else {
+                    profileViewModel.changePwd(
+                        data.token,
+                        data.email,
+                        edtOldPwd.text.toString().trim(),
+                        edtNewPwd.text.toString().trim()
+                    )
+                }
+
+                fun setLoading(isLoading: Boolean) {
+                    if (isLoading) {
+                        changepwdBtn.text = ""
+                        loader.visibility = View.VISIBLE
+                    } else {
+                        changepwdBtn.text = getString(R.string.change)
+                        loader.visibility = View.GONE
+                    }
+                }
+
+                profileViewModel.pwdIsLoading.observe(viewLifecycleOwner) { isLoading ->
+                    setLoading(isLoading)
+                    if (!isLoading) {
+                        alertDialog.dismiss()
+                    }
+                }
+
+                profileViewModel.pwdChange.observe(viewLifecycleOwner) { response ->
+                    Toast.makeText(requireContext(), response.message, Toast.LENGTH_SHORT).show()
+                }
             }
         }
 
         binding?.btnSave?.setOnClickListener {
             currentImageUri?.let { uri ->
-                mainViewModel.getSession().observe(viewLifecycleOwner) { user ->
-                    val imageFile = uriToFile(uri, requireContext()).reduceFileImage()
-                    val usernameRequestBody = user.username.toRequestBody("text/plain".toMediaType())
-                    val emailRequestBody = user.email.toRequestBody("text/plain".toMediaType())
-                    val imageRequestBody = imageFile.asRequestBody("image/jpeg".toMediaType())
-                    val multipartBody = MultipartBody.Part.createFormData(
-                        "file",
-                        imageFile.name,
-                        imageRequestBody
-                    )
-
-                    Log.d("profilefragmentoken", user.token)
-                    profileViewModel.editProfile(user.token, usernameRequestBody, emailRequestBody, multipartBody)
-                }
+                val imageFile = uriToFile(uri, requireContext()).reduceFileImage()
+                val usernameRequestBody = data.username.toRequestBody("text/plain".toMediaType())
+                val emailRequestBody = data.email.toRequestBody("text/plain".toMediaType())
+                val imageRequestBody = imageFile.asRequestBody("image/jpeg".toMediaType())
+                val multipartBody = MultipartBody.Part.createFormData(
+                    "file",
+                    imageFile.name,
+                    imageRequestBody
+                )
+                profileViewModel.editProfile(data.token, usernameRequestBody, emailRequestBody, multipartBody)
             }
             profileViewModel.editedProfile.observe(viewLifecycleOwner) { response ->
-                if (response.message == "Profile updated successfully")
+                if (response.message == "Profile updated successfully"){
                     Toast.makeText(requireContext(), response.message, Toast.LENGTH_SHORT).show()
+                    binding?.btnSave?.visibility = View.GONE
+                }
             }
         }
     }

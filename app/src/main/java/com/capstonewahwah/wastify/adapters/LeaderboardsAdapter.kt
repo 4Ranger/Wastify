@@ -2,6 +2,7 @@ package com.capstonewahwah.wastify.adapters
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -14,7 +15,17 @@ class LeaderboardsAdapter(private val isLoading: Boolean) : ListAdapter<Leaderbo
     inner class ViewModel(private val binding: LeaderboardLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(leaderboard: LeaderboardItem) {
             binding.tvUsername.text = leaderboard.username
-            binding.tvPoints.text = binding.root.context.getString(R.string.user_point, leaderboard.historyCount)
+            binding.tvPoints.text = binding.root.context.getString(R.string.user_point, leaderboard.historyPoints)
+
+            when (leaderboard.rank) {
+                1 -> binding.ivRank1.visibility = View.VISIBLE
+                2 -> binding.ivRank2.visibility = View.VISIBLE
+                3 -> binding.ivRank3.visibility = View.VISIBLE
+                else -> {
+                    binding.tvRank.visibility = View.VISIBLE
+                    binding.tvRank.text = binding.root.context.getString(R.string.rank, leaderboard.rank)
+                }
+            }
             if (isLoading) binding.skeletonLayout.showSkeleton() else binding.skeletonLayout.showOriginal()
         }
     }

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.transition.Fade
 import com.capstonewahwah.wastify.R
 import com.capstonewahwah.wastify.adapters.HistoryAdapter
 import com.capstonewahwah.wastify.data.remote.response.HistoryResponse
@@ -29,6 +30,12 @@ class ClassificationsFragment : Fragment() {
 
     private val classificationsViewModel by viewModels<ClassificationsViewModel> {
         ViewModelFactory.getInstance(requireContext())
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enterTransition = Fade()
+        exitTransition = Fade()
     }
 
     override fun onCreateView(
@@ -166,7 +173,7 @@ class ClassificationsFragment : Fragment() {
     private fun loadHistory(history: List<HistoryResponseItem>) {
         classificationsViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             val adapter = HistoryAdapter(isLoading)
-            adapter.submitList(history)
+            adapter.submitList(history.reversed())
             binding?.rvWaste?.adapter = adapter
         }
     }

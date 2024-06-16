@@ -20,15 +20,23 @@
 
     <TextView
         android:id="@+id/tv_spotlight_details"
+        style="@style/manropeBold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:ems="8"
         android:text="@string/target_details"
         android:textColor="@color/white"
-        style="@style/manropeBold"
         android:textSize="24sp"
-        android:ems="8"
-        android:layout_marginTop="30dp"
-        app:layout_constraintEnd_toStartOf="@+id/btn_next"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btn_next" />
+        app:layout_constraintBottom_toTopOf="@id/space"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <Space
+        android:id="@+id/space"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="46dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

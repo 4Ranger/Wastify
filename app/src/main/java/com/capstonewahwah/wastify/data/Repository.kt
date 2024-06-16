@@ -3,16 +3,19 @@ package com.capstonewahwah.wastify.data
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.capstonewahwah.wastify.data.local.pref.UserData
+import com.capstonewahwah.wastify.data.local.pref.UserDataPreference
 import com.capstonewahwah.wastify.data.local.pref.UserModel
 import com.capstonewahwah.wastify.data.local.pref.UserPreference
 import com.capstonewahwah.wastify.data.remote.response.ArticlesResponse
+import com.capstonewahwah.wastify.data.remote.response.ChangePwdResponse
 import com.capstonewahwah.wastify.data.remote.response.EditProfileResponse
-import com.capstonewahwah.wastify.data.remote.response.HistoryResponse
 import com.capstonewahwah.wastify.data.remote.response.HistoryResponseItem
 import com.capstonewahwah.wastify.data.remote.response.LeaderboardsResponse
 import com.capstonewahwah.wastify.data.remote.response.LoginResponse
 import com.capstonewahwah.wastify.data.remote.response.PredictResponse
 import com.capstonewahwah.wastify.data.remote.response.RegisterResponse
+import com.capstonewahwah.wastify.data.remote.response.UnhandledResponse
 import com.capstonewahwah.wastify.data.remote.response.UserDetailsResponse
 import com.capstonewahwah.wastify.data.remote.retrofit.APIService
 import com.capstonewahwah.wastify.helper.SingleLiveEvent
@@ -26,8 +29,11 @@ import retrofit2.Response
 class Repository private constructor(
     private val userPreference: UserPreference,
     private val articlesApiService: APIService,
-    private val apiService: APIService
+    private val apiService: APIService,
+    private val userDataPreference: UserDataPreference
 ) {
+
+    // Session
     suspend fun saveSession(user: UserModel) {
         userPreference.saveSession(user)
     }
@@ -39,6 +45,22 @@ class Repository private constructor(
     suspend fun logout() {
         userPreference.logout()
     }
+
+    // User Data
+    suspend fun saveUserData(user: UserData) {
+        userDataPreference.saveUserData(user)
+    }
+
+    fun getUserData(): Flow<UserData> {
+        return userDataPreference.getUserData()
+    }
+
+    suspend fun deleteUserData() {
+        userDataPreference.deleteUserData()
+    }
+
+    private val _response = MutableLiveData<UnhandledResponse>()
+    val response: LiveData<UnhandledResponse> = _response
 
     // Auth
     private val _authLoading = MutableLiveData<Boolean>()
@@ -85,6 +107,9 @@ class Repository private constructor(
                     _login.value = response.body()
                 } else {
                     Log.e(TAG, "onFailure: ${response.message()}")
+                    if (response.code() == 400) {
+                        _response.value = UnhandledResponse(400, "Email atau Password yang anda masukkan salah")
+                    }
                 }
             }
 
@@ -162,7 +187,7 @@ class Repository private constructor(
     }
 
     // User Details
-    private val _userDetails = MutableLiveData<UserDetailsResponse>()
+    private val _userDetails = SingleLiveEvent<UserDetailsResponse>()
     val userDetails: LiveData<UserDetailsResponse> get() = _userDetails
     fun getUserDetails(token: String) {
         val client = apiService.getUserDetails(token)
@@ -189,7 +214,7 @@ class Repository private constructor(
     val editedProfile: LiveData<EditProfileResponse> get() = _editedProfile
 
     fun updateProfile(token: String, username: RequestBody, email: RequestBody, file: MultipartBody.Part) {
-        val client = apiService.editProfile(token, username, email, file)
+        val client = apiService.editProfile("Bearer $token", username, email, file)
         client.enqueue(object : Callback<EditProfileResponse> {
             override fun onResponse(
                 call: Call<EditProfileResponse>,
@@ -203,6 +228,35 @@ class Repository private constructor(
             }
 
             override fun onFailure(call: Call<EditProfileResponse>, t: Throwable) {
+                Log.e(TAG, "onFailure: ${t.message.toString()}")
+            }
+        })
+    }
+
+    // Change Password
+    private val _pwdChange = MutableLiveData<ChangePwdResponse>()
+    val pwdChange: LiveData<ChangePwdResponse> get() = _pwdChange
+    private val _changePwdLoading = MutableLiveData<Boolean>()
+    val changePwdLoading: LiveData<Boolean> get() = _changePwdLoading
+
+    fun changePwd(token: String, email: String, oldPassword: String, newPassword: String) {
+        _changePwdLoading.value = true
+        val client = apiService.changePwd("Bearer $token", email, oldPassword, newPassword)
+        client.enqueue(object : Callback<ChangePwdResponse> {
+            override fun onResponse(
+                call: Call<ChangePwdResponse>,
+                response: Response<ChangePwdResponse>
+            ) {
+                _changePwdLoading.value = false
+                if (response.isSuccessful) {
+                    _pwdChange.value = response.body()
+                } else {
+                    Log.e(TAG, "onFailure: ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<ChangePwdResponse>, t: Throwable) {
+                _changePwdLoading.value = false
                 Log.e(TAG, "onFailure: ${t.message.toString()}")
             }
         })
@@ -268,15 +322,21 @@ class Repository private constructor(
         })
     }
 
+
     companion object {
         private const val TAG = "Repository"
 
         @Volatile
         private var instance: Repository? = null
 
-        fun getInstance(userPreference: UserPreference, articlesApiService: APIService, apiService: APIService) : Repository = instance ?: synchronized(this) {
+        fun getInstance(
+            userPreference: UserPreference,
+            articlesApiService: APIService,
+            apiService: APIService,
+            userDataPreference: UserDataPreference
+        ) : Repository = instance ?: synchronized(this) {
             instance ?: synchronized(this) {
-                instance ?: Repository(userPreference, articlesApiService, apiService)
+                instance ?: Repository(userPreference, articlesApiService, apiService, userDataPreference)
             }.also { instance = it }
         }
     }
