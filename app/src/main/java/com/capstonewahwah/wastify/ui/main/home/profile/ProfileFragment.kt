@@ -85,7 +85,7 @@ class ProfileFragment : Fragment() {
             currentImageUri?.let { uri ->
                 mainViewModel.getSession().observe(viewLifecycleOwner) { user ->
                     val imageFile = uriToFile(uri, requireContext()).reduceFileImage()
-                    val usernameRequestBody = user.name.toRequestBody("text/plain".toMediaType())
+                    val usernameRequestBody = user.username.toRequestBody("text/plain".toMediaType())
                     val emailRequestBody = user.email.toRequestBody("text/plain".toMediaType())
                     val imageRequestBody = imageFile.asRequestBody("image/jpeg".toMediaType())
                     val multipartBody = MultipartBody.Part.createFormData(

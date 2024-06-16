@@ -15,6 +15,7 @@ import com.capstonewahwah.wastify.data.remote.response.PredictResponse
 import com.capstonewahwah.wastify.data.remote.response.RegisterResponse
 import com.capstonewahwah.wastify.data.remote.response.UserDetailsResponse
 import com.capstonewahwah.wastify.data.remote.retrofit.APIService
+import com.capstonewahwah.wastify.helper.SingleLiveEvent
 import kotlinx.coroutines.flow.Flow
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -95,7 +96,7 @@ class Repository private constructor(
     }
 
     // Predict
-    private val _predict = MutableLiveData<PredictResponse>()
+    private val _predict = SingleLiveEvent<PredictResponse>()
     val predict: LiveData<PredictResponse> get() = _predict
 
     private val _predictLoading = MutableLiveData<Boolean>()

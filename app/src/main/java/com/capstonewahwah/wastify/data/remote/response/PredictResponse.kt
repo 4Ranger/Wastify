@@ -10,6 +10,9 @@ data class PredictResponse(
 	@field:SerializedName("predictedClass")
 	val predictedClass: String,
 
+	@field:SerializedName("error")
+	val error: Boolean,
+
 	@field:SerializedName("recommendations")
 	val recommendations: Recommendations
 )

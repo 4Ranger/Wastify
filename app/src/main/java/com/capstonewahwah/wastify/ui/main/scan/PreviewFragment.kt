@@ -88,11 +88,13 @@ class PreviewFragment : Fragment() {
             }
 
             scanViewModel.predict.observe(viewLifecycleOwner) { analyzeResult ->
-                val toResult = PreviewFragmentDirections.actionNavigationPreviewToNavigationResult()
-                toResult.image = analyzeResult.imageUrl
-                toResult.predictedClass = analyzeResult.predictedClass
-                toResult.recommendations = Gson().toJson(analyzeResult.recommendations, Recommendations::class.java)
-                findNavController().navigate(toResult)
+                if (!analyzeResult.error) {
+                    val toResult = PreviewFragmentDirections.actionNavigationPreviewToNavigationResult()
+                    toResult.image = analyzeResult.imageUrl
+                    toResult.predictedClass = analyzeResult.predictedClass
+                    toResult.recommendations = Gson().toJson(analyzeResult.recommendations, Recommendations::class.java)
+                    findNavController().navigate(toResult)
+                }
             }
         }
     }

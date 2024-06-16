@@ -51,15 +51,18 @@ class LoginActivity : AppCompatActivity() {
                 )
 
                 loginViewModel.login.observe(this) { user ->
-                    val session = UserModel(
-                        userId = user.loginResult.uid!!,
-                        name = user.loginResult.username!!,
-                        token = user.loginResult.token!!,
-                        email = "",
-                        historyAndPoints = 0,
-                        isLoggedIn = true
-                    )
-                    loginViewModel.saveSession(session)
+                    if (!user.error!!) {
+                        val session = UserModel(
+                            userId = user.loginResult?.uid!!,
+                            username = user.loginResult.username!!,
+                            token = user.loginResult.token!!,
+                            email = user.loginResult.email!!,
+                            history = user.loginResult.historyCount!!,
+                            points = user.loginResult.historyPoints!!,
+                            isLoggedIn = true
+                        )
+                        loginViewModel.saveSession(session)
+                    }
                 }
             }
         }

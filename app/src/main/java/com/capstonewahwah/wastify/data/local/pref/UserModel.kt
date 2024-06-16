@@ -2,9 +2,10 @@ package com.capstonewahwah.wastify.data.local.pref
 
 data class UserModel(
     val userId: String,
-    val name: String,
+    val username: String,
     val token: String,
     val email: String,
-    val historyAndPoints: Int,
+    val history: Int,
+    val points: Int,
     val isLoggedIn: Boolean = false
 )

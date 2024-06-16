@@ -59,7 +59,8 @@
             android:defaultValue="uri" />
         <action
             android:id="@+id/action_navigation_preview_to_navigation_result"
-            app:destination="@id/navigation_result" />
+            app:destination="@id/navigation_result"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/navigation_result"
@@ -80,7 +81,8 @@
             android:defaultValue="recommendations" />
         <action
             android:id="@+id/action_navigation_result_to_navigation_home"
-            app:destination="@id/navigation_home" />
+            app:destination="@id/navigation_home"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/navigation_profile"

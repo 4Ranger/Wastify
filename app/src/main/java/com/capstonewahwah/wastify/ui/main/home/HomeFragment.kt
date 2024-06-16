@@ -60,20 +60,22 @@ class HomeFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        homeViewModel.getArticles()
         mainViewModel.getSession().observe(viewLifecycleOwner) { user ->
-            homeViewModel.getUserDetails(user.token)
-
-            homeViewModel.userDetails.observe(viewLifecycleOwner) { newUserData ->
-                val newUserDataToSave = UserModel(
-                    userId = newUserData.uid,
-                    name = newUserData.username,
-                    token = user.token,
-                    email = newUserData.email,
-                    historyAndPoints = newUserData.history.size,
-                    isLoggedIn = true
-                )
-                mainViewModel.saveSession(newUserDataToSave)
+            if (user.isLoggedIn) {
+                homeViewModel.getArticles()
+//                homeViewModel.getUserDetails(user.token)
+//
+//                homeViewModel.userDetails.observe(viewLifecycleOwner) { newUserData ->
+//                    val newUserDataToSave = UserModel(
+//                        userId = newUserData.uid,
+//                        name = newUserData.username,
+//                        token = user.token,
+//                        email = newUserData.email,
+//                        historyAndPoints = newUserData.history.size,
+//                        isLoggedIn = true
+//                    )
+//                    mainViewModel.saveSession(newUserDataToSave)
+//                }
             }
         }
     }
@@ -82,9 +84,9 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         mainViewModel.getSession().observe(viewLifecycleOwner) { user ->
-            binding?.tvUsername?.text = getString(R.string.username_home, user.name)
-            binding?.tvPointDetails?.text = getString(R.string.user_point, user.historyAndPoints)
-            binding?.tvTrashDetails?.text = getString(R.string.waste_amount, user.historyAndPoints)
+            binding?.tvUsername?.text = getString(R.string.username_home, user.username)
+            binding?.tvPointDetails?.text = getString(R.string.user_point, user.points)
+            binding?.tvTrashDetails?.text = getString(R.string.waste_amount, user.history)
             Log.d("Token", user.token)
 
             binding?.cvProfile?.setOnClickListener {
@@ -93,7 +95,7 @@ class HomeFragment : Fragment() {
                     binding?.tvUsername!! to "userNameDetail"
                 )
                 val toProfileFragment = HomeFragmentDirections.actionNavigationHomeToProfileFragment()
-                toProfileFragment.username = user.name
+                toProfileFragment.username = user.username
                 findNavController().navigate(toProfileFragment, extras)
             }
         }
