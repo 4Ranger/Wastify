@@ -17,14 +17,16 @@
         app:cardCornerRadius="200dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/green"
+        app:strokeWidth="1dp">
 
         <ImageView
             android:id="@+id/iv_user"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/gray"
-            android:src="@drawable/ic_user_placeholder"
+            android:background="@color/white"
+            tools:src="@tools:sample/avatars"
             android:scaleType="fitXY"/>
     </com.google.android.material.card.MaterialCardView>
 
@@ -56,20 +58,36 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_save"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginHorizontal="100dp"
-        android:backgroundTint="@color/green"
-        android:text="@string/save"
-        style="@style/manropeBold"
-        android:textColor="@color/white"
-        app:cornerRadius="14dp"
-        android:visibility="gone"
-        tools:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="30dp"/>
+        android:layout_marginBottom="30dp">
+
+        <ProgressBar
+            android:id="@+id/loader"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:translationZ="5dp"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/white"
+            android:visibility="gone"
+            tools:visibility="visible"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_save"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/green"
+            android:text="@string/save"
+            style="@style/manropeBold"
+            android:textColor="@color/white"
+            app:cornerRadius="14dp"
+            android:visibility="gone"
+            tools:visibility="visible"/>
+    </FrameLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

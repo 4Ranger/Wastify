@@ -12,6 +12,7 @@ class ProfileViewModel(private val repository: Repository) : ViewModel() {
     val editedProfile: LiveData<EditProfileResponse> = repository.editedProfile
     val pwdChange: LiveData<ChangePwdResponse> = repository.pwdChange
     val pwdIsLoading: LiveData<Boolean> = repository.changePwdLoading
+    val edtIsLoading: LiveData<Boolean> = repository.editedProfileLoading
 
     fun changePwd(
         token: String,

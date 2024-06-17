@@ -50,6 +50,7 @@ class LeaderboardsFragment : Fragment() {
 
         leaderboardsViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             if (isLoading) {
+                binding?.tvNoData?.visibility = View.GONE
                 val dummyResponse = LeaderboardsResponse(
                     leaderboard = listOf(
                         LeaderboardItem(
@@ -104,6 +105,8 @@ class LeaderboardsFragment : Fragment() {
                     loadLeaderboard(leaderboards)
                     if (leaderboards.error) {
                         binding?.tvNoData?.visibility = View.VISIBLE
+                    } else {
+                        binding?.tvNoData?.visibility = View.GONE
                     }
                 }
             }

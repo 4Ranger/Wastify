@@ -101,5 +101,9 @@
             android:name="email"
             app:argType="string"
             android:defaultValue="email" />
+        <argument
+            android:name="photoUrl"
+            app:argType="string"
+            android:defaultValue="photoUrl" />
     </fragment>
 </navigation>

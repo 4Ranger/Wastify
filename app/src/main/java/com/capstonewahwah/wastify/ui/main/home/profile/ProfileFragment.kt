@@ -16,6 +16,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.transition.TransitionInflater
+import com.bumptech.glide.Glide
 import com.capstonewahwah.wastify.R
 import com.capstonewahwah.wastify.databinding.FragmentProfileBinding
 import com.capstonewahwah.wastify.helper.Utils.reduceFileImage
@@ -61,6 +62,10 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val data = ProfileFragmentArgs.fromBundle(arguments as Bundle)
+
+        Glide.with(requireContext())
+            .load(data.photoUrl)
+            .into(binding?.ivUser!!)
 
         binding?.tvUsername?.text = data.username
 
@@ -137,6 +142,20 @@ class ProfileFragment : Fragment() {
                     binding?.btnSave?.visibility = View.GONE
                 }
             }
+
+            profileViewModel.edtIsLoading.observe(viewLifecycleOwner) { isLoading ->
+                setLoading(isLoading)
+            }
+        }
+    }
+
+    private fun setLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding?.btnSave?.text = ""
+            binding?.loader?.visibility = View.VISIBLE
+        } else {
+            binding?.btnSave?.text = getString(R.string.save)
+            binding?.loader?.visibility = View.GONE
         }
     }
 

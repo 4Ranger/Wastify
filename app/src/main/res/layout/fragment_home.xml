@@ -27,15 +27,18 @@
                 app:cardCornerRadius="200dp"
                 app:layout_constraintStart_toStartOf="@+id/cv_user_details"
                 app:layout_constraintTop_toTopOf="parent"
-                android:transitionName="userProfilePicture">
+                android:transitionName="userProfilePicture"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/green">
 
                 <ImageView
                     android:id="@+id/iv_profile"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/ic_user_placeholder"
-                    android:background="@color/gray"
-                    tools:ignore="ContentDescription" />
+                    tools:src="@tools:sample/avatars"
+                    tools:ignore="ContentDescription"
+                    android:background="@color/white"
+                    android:scaleType="fitXY"/>
             </com.google.android.material.card.MaterialCardView>
 
             <TextView

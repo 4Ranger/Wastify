@@ -107,6 +107,7 @@ class HomeFragment : Fragment() {
                         toProfileFragment.username = user.username
                         toProfileFragment.token = user.token
                         toProfileFragment.email = userData.email
+                        toProfileFragment.photoUrl = userData.photoUrl
                         findNavController().navigate(toProfileFragment, extras)
                     }
                 }

@@ -210,16 +210,21 @@ class Repository private constructor(
     }
 
     // Edit Profile
-    private val _editedProfile = MutableLiveData<EditProfileResponse>()
+    private val _editedProfile = SingleLiveEvent<EditProfileResponse>()
     val editedProfile: LiveData<EditProfileResponse> get() = _editedProfile
 
+    private val _editedProfileLoading = MutableLiveData<Boolean>()
+    val editedProfileLoading: LiveData<Boolean> get() = _editedProfileLoading
+
     fun updateProfile(token: String, username: RequestBody, email: RequestBody, file: MultipartBody.Part) {
+        _editedProfileLoading.value = true
         val client = apiService.editProfile("Bearer $token", username, email, file)
         client.enqueue(object : Callback<EditProfileResponse> {
             override fun onResponse(
                 call: Call<EditProfileResponse>,
                 response: Response<EditProfileResponse>
             ) {
+                _editedProfileLoading.value = false
                 if (response.isSuccessful) {
                     _editedProfile.value = response.body()
                 } else {
@@ -228,13 +233,14 @@ class Repository private constructor(
             }
 
             override fun onFailure(call: Call<EditProfileResponse>, t: Throwable) {
+                _editedProfileLoading.value = false
                 Log.e(TAG, "onFailure: ${t.message.toString()}")
             }
         })
     }
 
     // Change Password
-    private val _pwdChange = MutableLiveData<ChangePwdResponse>()
+    private val _pwdChange = SingleLiveEvent<ChangePwdResponse>()
     val pwdChange: LiveData<ChangePwdResponse> get() = _pwdChange
     private val _changePwdLoading = MutableLiveData<Boolean>()
     val changePwdLoading: LiveData<Boolean> get() = _changePwdLoading

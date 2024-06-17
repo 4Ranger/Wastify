@@ -59,6 +59,7 @@ class ClassificationsFragment : Fragment() {
 
         classificationsViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             if (isLoading) {
+                binding?.tvNoData?.visibility = View.GONE
                 val dummyResponse = listOf(
                     HistoryResponseItem(
                         id = "abcd1234",
@@ -165,6 +166,11 @@ class ClassificationsFragment : Fragment() {
             } else {
                 classificationsViewModel.histories.observe(viewLifecycleOwner) { histories ->
                     loadHistory(histories)
+                    if (histories.isEmpty()) {
+                        binding?.tvNoData?.visibility = View.VISIBLE
+                    } else {
+                        binding?.tvNoData?.visibility = View.GONE
+                    }
                 }
             }
         }

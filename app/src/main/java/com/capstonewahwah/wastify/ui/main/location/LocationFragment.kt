@@ -3,6 +3,7 @@ package com.capstonewahwah.wastify.ui.main.location
 import androidx.fragment.app.Fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,6 @@ import androidx.transition.Fade
 import com.capstonewahwah.wastify.R
 import com.capstonewahwah.wastify.data.local.PengepulLocation
 import com.capstonewahwah.wastify.databinding.FragmentLocationBinding
-
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -29,7 +29,14 @@ class LocationFragment : Fragment() {
 
     private val callback = OnMapReadyCallback { googleMap ->
         mMap = googleMap
+        mMap.setOnMarkerClickListener(onMarkerClickListener)
         addPengepulLocation()
+    }
+
+    private val onMarkerClickListener = GoogleMap.OnMarkerClickListener { marker ->
+        marker.showInfoWindow()
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker.position, 15f))
+        true
     }
 
     private fun addPengepulLocation() {

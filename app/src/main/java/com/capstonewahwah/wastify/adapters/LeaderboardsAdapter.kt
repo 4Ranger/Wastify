@@ -18,12 +18,24 @@ class LeaderboardsAdapter(private val isLoading: Boolean) : ListAdapter<Leaderbo
             binding.tvPoints.text = binding.root.context.getString(R.string.user_point, leaderboard.historyPoints)
 
             when (leaderboard.rank) {
-                1 -> binding.ivRank1.visibility = View.VISIBLE
-                2 -> binding.ivRank2.visibility = View.VISIBLE
-                3 -> binding.ivRank3.visibility = View.VISIBLE
+                1 -> {
+                    binding.ivRank1.visibility = View.VISIBLE
+                    binding.tvRank.visibility = View.GONE
+                }
+                2 -> {
+                    binding.ivRank2.visibility = View.VISIBLE
+                    binding.tvRank.visibility = View.GONE
+                }
+                3 -> {
+                    binding.ivRank3.visibility = View.VISIBLE
+                    binding.tvRank.visibility = View.GONE
+                }
                 else -> {
                     binding.tvRank.visibility = View.VISIBLE
                     binding.tvRank.text = binding.root.context.getString(R.string.rank, leaderboard.rank)
+                    binding.ivRank1.visibility = View.GONE
+                    binding.ivRank2.visibility = View.GONE
+                    binding.ivRank3.visibility = View.GONE
                 }
             }
             if (isLoading) binding.skeletonLayout.showSkeleton() else binding.skeletonLayout.showOriginal()
