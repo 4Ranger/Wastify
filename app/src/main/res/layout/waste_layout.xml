@@ -7,7 +7,8 @@
     android:layout_width="164dp"
     android:layout_height="210dp"
     android:layout_marginTop="8dp"
-    android:layout_marginStart="20dp">
+    android:layout_marginStart="20dp"
+    app:maskCornerRadius="20dp">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
@@ -16,7 +17,9 @@
         android:layout_gravity="center"
         app:cardCornerRadius="30dp"
         android:layout_marginHorizontal="2dp"
-        android:layout_marginVertical="2dp">
+        android:layout_marginVertical="2dp"
+        app:strokeColor="@color/green"
+        app:strokeWidth="1dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,6 +28,7 @@
             android:gravity="center|top">
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_image"
                 android:layout_width="135dp"
                 android:layout_height="125dp"
                 android:layout_marginTop="14dp"
@@ -37,7 +41,8 @@
                     android:layout_height="match_parent"
                     tools:src="@tools:sample/avatars"
                     android:scaleType="fitXY"
-                    tools:ignore="ContentDescription" />
+                    tools:ignore="ContentDescription"
+                    android:transitionName="image"/>
             </com.google.android.material.card.MaterialCardView>
 
             <TextView
@@ -46,17 +51,9 @@
                 android:layout_height="wrap_content"
                 tools:text="@string/placeholder_waste_card_details1"
                 style="@style/manropeBold"
-                android:layout_marginTop="5dp"/>
+                android:layout_marginTop="18dp"
+                android:transitionName="classification"/>
 
-            <TextView
-                android:id="@+id/tv_details"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="@string/placeholder_waste_card_details2"
-                style="@style/manropeMedium"
-                android:textSize="10sp"
-                tools:ignore="SmallSp"
-                android:layout_marginTop="2dp"/>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 </com.faltenreich.skeletonlayout.SkeletonLayout>

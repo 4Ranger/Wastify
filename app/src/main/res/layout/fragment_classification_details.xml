@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.main.classifications.details.ClassificationDetailsFragment"
+    android:background="@color/white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_image"
+            android:layout_width="150dp"
+            android:layout_height="200dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="30dp"
+            android:outlineSpotShadowColor="@android:color/transparent"
+            app:cardCornerRadius="20dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/green">
+
+            <ImageView
+                android:id="@+id/iv_classification"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:src="@tools:sample/avatars"
+                android:scaleType="fitXY"
+                android:transitionName="imageDetails"/>
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/tv_classifications"
+            style="@style/manropeBold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/classification"
+            android:textColor="@color/green"
+            android:textSize="32sp"
+            android:transitionName="classificationDetails"
+            app:layout_constraintBottom_toBottomOf="@+id/cv_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cv_image"
+            app:layout_constraintTop_toTopOf="@+id/cv_image"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/cv_image"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/recomendations"
+                style="@style/manropeBold"
+                android:textSize="16sp"
+                android:textColor="@color/green" />
+
+            <TextView
+                android:id="@+id/tv_reduce"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/reduce"
+                style="@style/manropeRegular"
+                android:ems="18"
+                android:textColor="@color/green"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:id="@+id/tv_reuse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/reuse"
+                style="@style/manropeRegular"
+                android:ems="18"
+                android:textColor="@color/green"
+                android:layout_marginTop="5dp"/>
+
+            <TextView
+                android:id="@+id/tv_refuse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/refuse"
+                style="@style/manropeRegular"
+                android:ems="18"
+                android:textColor="@color/green"
+                android:layout_marginTop="5dp"/>
+
+            <TextView
+                android:id="@+id/tv_rot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/rot"
+                style="@style/manropeRegular"
+                android:ems="18"
+                android:textColor="@color/green"
+                android:layout_marginTop="5dp"/>
+
+            <TextView
+                android:id="@+id/tv_repurpose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/repurpose"
+                style="@style/manropeRegular"
+                android:ems="18"
+                android:textColor="@color/green"
+                android:layout_marginTop="5dp"/>
+
+            <TextView
+                android:id="@+id/tv_recycle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/recycle"
+                style="@style/manropeRegular"
+                android:ems="18"
+                android:textColor="@color/green"
+                android:layout_marginTop="5dp"/>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

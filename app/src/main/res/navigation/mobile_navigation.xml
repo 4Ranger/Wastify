@@ -29,7 +29,11 @@
         android:id="@+id/navigation_classification"
         android:name="com.capstonewahwah.wastify.ui.main.classifications.ClassificationsFragment"
         android:label="@string/title_classifications"
-        tools:layout="@layout/fragment_classifications" />
+        tools:layout="@layout/fragment_classifications" >
+        <action
+            android:id="@+id/action_navigation_classification_to_navigation_details"
+            app:destination="@id/navigation_details" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_scan1"
         android:name="com.capstonewahwah.wastify.ui.main.scan.ScanFragment1"
@@ -105,5 +109,43 @@
             android:name="photoUrl"
             app:argType="string"
             android:defaultValue="photoUrl" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_details"
+        android:name="com.capstonewahwah.wastify.ui.main.classifications.details.ClassificationDetailsFragment"
+        android:label="fragment_classification_details"
+        tools:layout="@layout/fragment_classification_details" >
+        <argument
+            android:name="classification"
+            app:argType="string"
+            android:defaultValue="Klasifikasi" />
+        <argument
+            android:name="reduce"
+            app:argType="string"
+            android:defaultValue="reduce" />
+        <argument
+            android:name="reuse"
+            app:argType="string"
+            android:defaultValue="reuse" />
+        <argument
+            android:name="rot"
+            app:argType="string"
+            android:defaultValue="rot" />
+        <argument
+            android:name="refuse"
+            app:argType="string"
+            android:defaultValue="refuse" />
+        <argument
+            android:name="repurpose"
+            app:argType="string"
+            android:defaultValue="repurpose" />
+        <argument
+            android:name="recycle"
+            app:argType="string"
+            android:defaultValue="recycle" />
+        <argument
+            android:name="image"
+            app:argType="string"
+            android:defaultValue="image" />
     </fragment>
 </navigation>

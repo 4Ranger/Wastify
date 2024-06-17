@@ -95,6 +95,9 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_result -> {
                     navController.popBackStack(R.id.navigation_preview, false)
                 }
+                R.id.navigation_details -> {
+                    navController.popBackStack(R.id.navigation_classification, false)
+                }
                 else -> {
                     navController.popBackStack(R.id.navigation_home, false)
                     binding.cl.visibility = View.VISIBLE

@@ -58,7 +58,7 @@
     <string name="home">Beranda</string>
     <string name="save">Simpan</string>
     <string name="placeholder_waste_card_details2">Masih dapat dipakai ulang</string>
-    <string name="placeholder_waste_card_details1">Plastik 85%</string>
+    <string name="placeholder_waste_card_details1">Plastik</string>
     <string name="waste_collectors_location">Lokasi Pengepul</string>
     <string name="change_password">Ubah Password</string>
     <string name="congrats">Selamat! Kamu sudah tahu cara memakai Wastify!</string>
@@ -73,4 +73,12 @@
     <string name="new_password">Password Baru</string>
     <string name="change">Ubah</string>
     <string name="rank">%d</string>
+    <string name="recomendations">Rekomendasi terhadap sampah :</string>
+    <string name="reduce">- %s</string>
+    <string name="reuse">- %s</string>
+    <string name="refuse">- %s</string>
+    <string name="rot">- %s</string>
+    <string name="repurpose">- %s</string>
+    <string name="recycle">- %s</string>
+    <string name="classification">Klasifikasi</string>
 </resources>

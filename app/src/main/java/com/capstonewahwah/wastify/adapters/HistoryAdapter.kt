@@ -3,12 +3,15 @@ package com.capstonewahwah.wastify.adapters
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.capstonewahwah.wastify.data.remote.response.HistoryResponseItem
 import com.capstonewahwah.wastify.databinding.WasteLayoutBinding
+import com.capstonewahwah.wastify.ui.main.classifications.ClassificationsFragmentDirections
 
 class HistoryAdapter(private val isLoading: Boolean) : ListAdapter<HistoryResponseItem, HistoryAdapter.ViewHolder>(DIFF_CALLBACK) {
     inner class ViewHolder(private val binding: WasteLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -17,7 +20,25 @@ class HistoryAdapter(private val isLoading: Boolean) : ListAdapter<HistoryRespon
                 .load(history.imageUrl)
                 .into(binding.ivWaste)
             binding.tvClassifications.text = history.predictedClass
-//            binding.tvDetails.text = history.recommendations.rot
+
+            binding.root.setOnClickListener {
+                val extras = FragmentNavigatorExtras(
+                    binding.ivWaste to "imageDetails",
+                    binding.tvClassifications to "classificationDetails"
+                )
+
+                val toClassificationDetail = ClassificationsFragmentDirections.actionNavigationClassificationToNavigationDetails()
+                toClassificationDetail.classification = history.predictedClass
+                toClassificationDetail.image = history.imageUrl
+                toClassificationDetail.rot = history.recommendations.rot
+                toClassificationDetail.reduce = history.recommendations.reduce
+                toClassificationDetail.recycle = history.recommendations.recycle
+                toClassificationDetail.refuse = history.recommendations.refuse
+                toClassificationDetail.repurpose = history.recommendations.repurpose
+                toClassificationDetail.reuse = history.recommendations.reuse
+                it.findNavController().navigate(toClassificationDetail, extras)
+            }
+
             if (isLoading) binding.skeletonLayout.showSkeleton() else binding.skeletonLayout.showOriginal()
         }
     }

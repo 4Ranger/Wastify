@@ -1,5 +1,8 @@
 package com.capstonewahwah.wastify.ui.main.home.profile
 
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -7,12 +10,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.transition.TransitionInflater
@@ -25,10 +29,13 @@ import com.capstonewahwah.wastify.helper.ViewModelFactory
 import com.capstonewahwah.wastify.ui.main.MainViewModel
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
+import com.yalantis.ucrop.UCrop
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import java.io.File
+import kotlin.random.Random
 
 
 class ProfileFragment : Fragment() {
@@ -36,12 +43,9 @@ class ProfileFragment : Fragment() {
     private val binding get() = _binding
 
     private var currentImageUri: Uri? = null
+    private var croppedImageUri: Uri? = null
 
     private val profileViewModel by viewModels<ProfileViewModel> {
-        ViewModelFactory.getInstance(requireContext())
-    }
-
-    private val mainViewModel by activityViewModels<MainViewModel> {
         ViewModelFactory.getInstance(requireContext())
     }
 
@@ -159,6 +163,26 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    private val ucropContracts = object : ActivityResultContract<List<Uri>, Uri>() {
+        override fun createIntent(context: Context, input: List<Uri>): Intent {
+            val inputUri = input[0]
+            val outputUri = input[1]
+
+            val ucrop = UCrop.of(inputUri, outputUri)
+                .withAspectRatio(5f, 5f)
+                .withMaxResultSize(800, 800)
+            return ucrop.getIntent(context)
+        }
+
+        override fun parseResult(resultCode: Int, intent: Intent?): Uri {
+            return if (intent != null && resultCode == Activity.RESULT_OK) {
+                UCrop.getOutput(intent)!!
+            } else {
+                Uri.EMPTY
+            }
+        }
+    }
+
     private val launchGallery = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri: Uri? ->
         if (uri != null) {
             currentImageUri = uri
@@ -168,9 +192,19 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    private val cropImage = registerForActivityResult(ucropContracts) { uri ->
+        binding?.ivUser?.setImageURI(uri)
+        croppedImageUri = uri
+    }
+
     private fun showImage() {
+        val imageId = Random(10)
         currentImageUri?.let {
-            binding?.ivUser?.setImageURI(it)
+            val inputUri = it
+            val outputUri = File(context?.filesDir, "croppedImage$imageId.png").toUri()
+            val listUri = listOf(inputUri, outputUri)
+            cropImage.launch(listUri)
+
             binding?.btnSave?.visibility = View.VISIBLE
         }
     }
