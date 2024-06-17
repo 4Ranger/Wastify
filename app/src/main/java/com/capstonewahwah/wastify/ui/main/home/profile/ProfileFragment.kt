@@ -128,7 +128,7 @@ class ProfileFragment : Fragment() {
         }
 
         binding?.btnSave?.setOnClickListener {
-            currentImageUri?.let { uri ->
+            croppedImageUri?.let { uri ->
                 val imageFile = uriToFile(uri, requireContext()).reduceFileImage()
                 val usernameRequestBody = data.username.toRequestBody("text/plain".toMediaType())
                 val emailRequestBody = data.email.toRequestBody("text/plain".toMediaType())
