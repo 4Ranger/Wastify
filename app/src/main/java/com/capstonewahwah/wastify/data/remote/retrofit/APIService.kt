@@ -3,8 +3,7 @@ package com.capstonewahwah.wastify.data.remote.retrofit
 import com.capstonewahwah.wastify.BuildConfig
 import com.capstonewahwah.wastify.data.remote.response.ArticlesResponse
 import com.capstonewahwah.wastify.data.remote.response.ChangePwdResponse
-import com.capstonewahwah.wastify.data.remote.response.EditProfileResponse
-import com.capstonewahwah.wastify.data.remote.response.HistoryResponse
+import com.capstonewahwah.wastify.data.remote.response.EditUserResponse
 import com.capstonewahwah.wastify.data.remote.response.HistoryResponseItem
 import com.capstonewahwah.wastify.data.remote.response.LeaderboardsResponse
 import com.capstonewahwah.wastify.data.remote.response.LoginResponse
@@ -19,6 +18,7 @@ import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Multipart
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Part
@@ -62,15 +62,15 @@ interface APIService {
         @Header("Authorization") token: String
     ): Call<UserDetailsResponse>
 
-    // Edit Profile Image
+    // Edit User
     @Multipart
-    @PUT("auth/editProfile")
-    fun editProfile(
+    @PATCH("auth/editProfile")
+    fun updateUser(
         @Header("Authorization") token: String,
-        @Part("username") username: RequestBody,
-        @Part("email") email: RequestBody,
-        @Part file: MultipartBody.Part
-    ): Call<EditProfileResponse>
+        @Part("email") email: RequestBody?,
+        @Part("username") username: RequestBody?,
+        @Part file: MultipartBody.Part?
+    ): Call<EditUserResponse>
 
     // Change Password
     @FormUrlEncoded

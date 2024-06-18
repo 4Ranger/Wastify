@@ -81,4 +81,6 @@
     <string name="repurpose">- %s</string>
     <string name="recycle">- %s</string>
     <string name="classification">Klasifikasi</string>
+    <string name="new_username">Username Baru</string>
+    <string name="new_email">Email Baru</string>
 </resources>

@@ -75,25 +75,30 @@ class HomeFragment : Fragment() {
 
         mainViewModel.userDetails.observe(viewLifecycleOwner) { userDetails ->
             val userData = UserData(
+                username = userDetails.login.username,
                 email = userDetails.login.email,
                 trashScanned = userDetails.login.historyCount,
                 points = userDetails.login.historyPoints,
-                photoUrl = userDetails.login.photoURL
+                photoUrl = userDetails.login.photoURL,
+                firstBoot = false
             )
             mainViewModel.saveUserData(userData)
         }
 
         mainViewModel.getSession().observe(viewLifecycleOwner) { user ->
             if (user.isLoggedIn) {
-                binding?.tvUsername?.text = getString(R.string.username_home, user.username)
                 Log.d("Token", user.token)
 
                 mainViewModel.getUserData().observe(viewLifecycleOwner) { userData ->
-                    if (userData.photoUrl != null) {
-                        Glide.with(requireContext())
-                            .load(userData.photoUrl)
-                            .into(binding?.ivProfile!!)
-                    } else binding?.ivProfile?.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_user_placeholder))
+                    Glide.with(requireContext())
+                        .load(userData.photoUrl)
+                        .into(binding?.ivProfile!!)
+
+                    if (!userData.firstBoot) {
+                        binding?.tvUsername?.text = getString(R.string.username_home, userData.username)
+                    } else {
+                        binding?.tvUsername?.text = getString(R.string.username_home, user.username)
+                    }
 
                     binding?.tvPointDetails?.text = getString(R.string.user_point, userData.points)
                     binding?.tvTrashDetails?.text = getString(R.string.waste_amount, userData.trashScanned)
@@ -104,7 +109,7 @@ class HomeFragment : Fragment() {
                             binding?.tvUsername!! to "userNameDetail"
                         )
                         val toProfileFragment = HomeFragmentDirections.actionNavigationHomeToProfileFragment()
-                        toProfileFragment.username = user.username
+                        toProfileFragment.username = userData.username
                         toProfileFragment.token = user.token
                         toProfileFragment.email = userData.email
                         toProfileFragment.photoUrl = userData.photoUrl

@@ -4,12 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.capstonewahwah.wastify.data.Repository
 import com.capstonewahwah.wastify.data.remote.response.ChangePwdResponse
-import com.capstonewahwah.wastify.data.remote.response.EditProfileResponse
+import com.capstonewahwah.wastify.data.remote.response.EditUserResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
 class ProfileViewModel(private val repository: Repository) : ViewModel() {
-    val editedProfile: LiveData<EditProfileResponse> = repository.editedProfile
+    val updatedUser: LiveData<EditUserResponse> = repository.updatedUser
     val pwdChange: LiveData<ChangePwdResponse> = repository.pwdChange
     val pwdIsLoading: LiveData<Boolean> = repository.changePwdLoading
     val edtIsLoading: LiveData<Boolean> = repository.editedProfileLoading
@@ -21,10 +21,10 @@ class ProfileViewModel(private val repository: Repository) : ViewModel() {
         newPassword: String
     ) = repository.changePwd(token, email, oldPassword, newPassword)
 
-    fun editProfile(
+    fun updateUser(
         token: String,
-        username: RequestBody,
-        email: RequestBody,
-        file: MultipartBody.Part
-    ) = repository.updateProfile(token, username, email, file)
+        email: RequestBody?,
+        username: RequestBody?,
+        file: MultipartBody.Part?
+    ) = repository.updateUser(token, email, username, file)
 }

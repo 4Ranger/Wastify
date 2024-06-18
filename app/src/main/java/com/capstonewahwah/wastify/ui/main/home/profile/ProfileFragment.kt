@@ -72,6 +72,7 @@ class ProfileFragment : Fragment() {
             .into(binding?.ivUser!!)
 
         binding?.tvUsername?.text = data.username
+        binding?.tvEmail?.text = data.email
 
         binding?.cvProfilePicture?.setOnClickListener {
             launchGallery.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
@@ -130,25 +131,59 @@ class ProfileFragment : Fragment() {
         binding?.btnSave?.setOnClickListener {
             croppedImageUri?.let { uri ->
                 val imageFile = uriToFile(uri, requireContext()).reduceFileImage()
-                val usernameRequestBody = data.username.toRequestBody("text/plain".toMediaType())
-                val emailRequestBody = data.email.toRequestBody("text/plain".toMediaType())
                 val imageRequestBody = imageFile.asRequestBody("image/jpeg".toMediaType())
-                val multipartBody = MultipartBody.Part.createFormData(
+                val imageMultipartBody = MultipartBody.Part.createFormData(
                     "file",
                     imageFile.name,
                     imageRequestBody
                 )
-                profileViewModel.editProfile(data.token, usernameRequestBody, emailRequestBody, multipartBody)
+                profileViewModel.updateUser(data.token, null, null, imageMultipartBody)
             }
-            profileViewModel.editedProfile.observe(viewLifecycleOwner) { response ->
-                if (response.message == "Profile updated successfully"){
-                    Toast.makeText(requireContext(), response.message, Toast.LENGTH_SHORT).show()
-                    binding?.btnSave?.visibility = View.GONE
-                }
-            }
+        }
 
-            profileViewModel.edtIsLoading.observe(viewLifecycleOwner) { isLoading ->
-                setLoading(isLoading)
+        profileViewModel.edtIsLoading.observe(viewLifecycleOwner) { isLoading ->
+            setLoading(isLoading)
+            setLoadingForUsername(isLoading)
+            setLoadingForEmail(isLoading)
+        }
+
+        // username
+        binding?.btnChangeUsername?.setOnClickListener {
+            binding?.llUsername?.visibility = View.GONE
+            binding?.llChangeUsr?.visibility = View.VISIBLE
+        }
+
+        binding?.btnOkUsername?.setOnClickListener {
+            val newUsername = binding?.edtNewUsername?.text?.toString()?.trim()
+            val usernameRequestBody = newUsername?.toRequestBody("text/plain".toMediaType())
+
+            binding?.tvUsername?.text = newUsername
+            profileViewModel.updateUser(data.token, null, usernameRequestBody, null)
+        }
+
+        // email
+        binding?.btnChangeEmail?.setOnClickListener {
+            binding?.llEmail?.visibility = View.GONE
+            binding?.llChangeEmail?.visibility = View.VISIBLE
+        }
+
+        binding?.btnOkEmail?.setOnClickListener {
+            val newEmail = binding?.edtNewEmail?.text?.toString()?.trim()
+            val emailRequestBody = newEmail?.toRequestBody("text/plain".toMediaType())
+
+            binding?.tvEmail?.text = newEmail
+            profileViewModel.updateUser(data.token, emailRequestBody, null, null)
+        }
+
+        profileViewModel.updatedUser.observe(viewLifecycleOwner) { response ->
+            if (response.message == "Profile updated successfully" && response.url == null) {
+                binding?.llChangeUsr?.visibility = View.GONE
+                binding?.llChangeEmail?.visibility = View.GONE
+                binding?.llUsername?.visibility = View.VISIBLE
+                binding?.llEmail?.visibility = View.VISIBLE
+            } else {
+                Toast.makeText(requireContext(), response.message, Toast.LENGTH_SHORT).show()
+                binding?.btnSave?.visibility = View.GONE
             }
         }
     }
@@ -160,6 +195,26 @@ class ProfileFragment : Fragment() {
         } else {
             binding?.btnSave?.text = getString(R.string.save)
             binding?.loader?.visibility = View.GONE
+        }
+    }
+
+    private fun setLoadingForUsername(isLoading: Boolean) {
+        if (isLoading) {
+            binding?.btnOkUsername?.visibility = View.GONE
+            binding?.loaderuser?.visibility = View.VISIBLE
+        } else {
+            binding?.btnOkUsername?.visibility = View.VISIBLE
+            binding?.loaderuser?.visibility = View.GONE
+        }
+    }
+
+    private fun setLoadingForEmail(isLoading: Boolean) {
+        if (isLoading) {
+            binding?.btnOkEmail?.visibility = View.GONE
+            binding?.loaderemail?.visibility = View.VISIBLE
+        } else {
+            binding?.btnOkEmail?.visibility = View.VISIBLE
+            binding?.loaderemail?.visibility = View.GONE
         }
     }
 

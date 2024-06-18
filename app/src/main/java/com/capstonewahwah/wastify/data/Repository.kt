@@ -9,7 +9,7 @@ import com.capstonewahwah.wastify.data.local.pref.UserModel
 import com.capstonewahwah.wastify.data.local.pref.UserPreference
 import com.capstonewahwah.wastify.data.remote.response.ArticlesResponse
 import com.capstonewahwah.wastify.data.remote.response.ChangePwdResponse
-import com.capstonewahwah.wastify.data.remote.response.EditProfileResponse
+import com.capstonewahwah.wastify.data.remote.response.EditUserResponse
 import com.capstonewahwah.wastify.data.remote.response.HistoryResponseItem
 import com.capstonewahwah.wastify.data.remote.response.LeaderboardsResponse
 import com.capstonewahwah.wastify.data.remote.response.LoginResponse
@@ -210,29 +210,29 @@ class Repository private constructor(
     }
 
     // Edit Profile
-    private val _editedProfile = SingleLiveEvent<EditProfileResponse>()
-    val editedProfile: LiveData<EditProfileResponse> get() = _editedProfile
-
     private val _editedProfileLoading = MutableLiveData<Boolean>()
     val editedProfileLoading: LiveData<Boolean> get() = _editedProfileLoading
 
-    fun updateProfile(token: String, username: RequestBody, email: RequestBody, file: MultipartBody.Part) {
+    private val _updatedUser = SingleLiveEvent<EditUserResponse>()
+    val updatedUser: LiveData<EditUserResponse> get() = _updatedUser
+
+    fun updateUser(token: String, email: RequestBody?, username: RequestBody?, file: MultipartBody.Part?) {
         _editedProfileLoading.value = true
-        val client = apiService.editProfile("Bearer $token", username, email, file)
-        client.enqueue(object : Callback<EditProfileResponse> {
+        val client = apiService.updateUser("Bearer $token", email, username, file)
+        client.enqueue(object : Callback<EditUserResponse> {
             override fun onResponse(
-                call: Call<EditProfileResponse>,
-                response: Response<EditProfileResponse>
+                call: Call<EditUserResponse>,
+                response: Response<EditUserResponse>
             ) {
                 _editedProfileLoading.value = false
                 if (response.isSuccessful) {
-                    _editedProfile.value = response.body()
+                    _updatedUser.value = response.body()
                 } else {
-                    Log.e(TAG, "onFailure1: ${response.message()}")
+                    Log.e(TAG, "onFailure: ${response.message()}")
                 }
             }
 
-            override fun onFailure(call: Call<EditProfileResponse>, t: Throwable) {
+            override fun onFailure(call: Call<EditUserResponse>, t: Throwable) {
                 _editedProfileLoading.value = false
                 Log.e(TAG, "onFailure: ${t.message.toString()}")
             }
