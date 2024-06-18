@@ -31,7 +31,6 @@ class ClassificationDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        postponeEnterTransition()
 
         val data = ClassificationDetailsFragmentArgs.fromBundle(arguments as Bundle)
 
@@ -45,10 +44,6 @@ class ClassificationDetailsFragment : Fragment() {
         binding?.tvRefuse?.text = getString(R.string.refuse, data.refuse)
         binding?.tvRecycle?.text = getString(R.string.recycle, data.recycle)
         binding?.tvRepurpose?.text = getString(R.string.repurpose, data.repurpose)
-
-        (view.parent as? ViewGroup)?.doOnPreDraw {
-            startPostponedEnterTransition()
-        }
     }
 
     override fun onDestroyView() {

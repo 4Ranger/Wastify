@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_navigation_home_to_profileFragment"
             app:destination="@id/navigation_profile" />
+        <action
+            android:id="@+id/action_navigation_home_to_articleDetailsFragment"
+            app:destination="@id/articleDetailsFragment" />
     </fragment>
 
     <fragment
@@ -147,5 +150,15 @@
             android:name="image"
             app:argType="string"
             android:defaultValue="image" />
+    </fragment>
+    <fragment
+        android:id="@+id/articleDetailsFragment"
+        android:name="com.capstonewahwah.wastify.ui.main.home.articleDetails.ArticleDetailsFragment"
+        android:label="fragment_article_details"
+        tools:layout="@layout/fragment_article_details" >
+        <argument
+            android:name="url"
+            app:argType="string"
+            android:defaultValue="url" />
     </fragment>
 </navigation>

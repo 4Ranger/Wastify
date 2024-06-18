@@ -2,6 +2,7 @@ package com.capstonewahwah.wastify.ui.welcome
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -27,6 +28,10 @@ class WelcomeActivity : AppCompatActivity() {
 
         binding.btnLoginWastify.setOnClickListener {
             startActivity(Intent(this@WelcomeActivity, LoginActivity::class.java))
+        }
+
+        binding.btnLoginGoogle.setOnClickListener {
+            Toast.makeText(this@WelcomeActivity, "Sedang dalam pengerjaan..", Toast.LENGTH_SHORT).show()
         }
     }
 }

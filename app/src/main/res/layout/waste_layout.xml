@@ -33,6 +33,7 @@
                 android:layout_height="125dp"
                 android:layout_marginTop="14dp"
                 app:cardCornerRadius="20dp"
+                android:transitionName="classificationImage"
                 android:outlineSpotShadowColor="@android:color/transparent">
 
                 <ImageView
@@ -41,8 +42,7 @@
                     android:layout_height="match_parent"
                     tools:src="@tools:sample/avatars"
                     android:scaleType="fitXY"
-                    tools:ignore="ContentDescription"
-                    android:transitionName="image"/>
+                    tools:ignore="ContentDescription"/>
             </com.google.android.material.card.MaterialCardView>
 
             <TextView
@@ -52,7 +52,7 @@
                 tools:text="@string/placeholder_waste_card_details1"
                 style="@style/manropeBold"
                 android:layout_marginTop="18dp"
-                android:transitionName="classification"/>
+                android:transitionName="classificationName"/>
 
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>

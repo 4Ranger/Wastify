@@ -3,6 +3,7 @@ package com.capstonewahwah.wastify.adapters
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.DiffUtil
@@ -16,6 +17,9 @@ import com.capstonewahwah.wastify.ui.main.classifications.ClassificationsFragmen
 class HistoryAdapter(private val isLoading: Boolean) : ListAdapter<HistoryResponseItem, HistoryAdapter.ViewHolder>(DIFF_CALLBACK) {
     inner class ViewHolder(private val binding: WasteLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(history: HistoryResponseItem) {
+            ViewCompat.setTransitionName(binding.cvImage, history.imageUrl)
+            ViewCompat.setTransitionName(binding.tvClassifications, history.predictedClass)
+
             Glide.with(binding.root)
                 .load(history.imageUrl)
                 .into(binding.ivWaste)
@@ -23,8 +27,8 @@ class HistoryAdapter(private val isLoading: Boolean) : ListAdapter<HistoryRespon
 
             binding.root.setOnClickListener {
                 val extras = FragmentNavigatorExtras(
-                    binding.ivWaste to "imageDetails",
-                    binding.tvClassifications to "classificationDetails"
+                    binding.cvImage to "classificationImageDetail",
+                    binding.tvClassifications to "classificationNameDetail"
                 )
 
                 val toClassificationDetail = ClassificationsFragmentDirections.actionNavigationClassificationToNavigationDetails()
