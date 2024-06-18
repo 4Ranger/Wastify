@@ -67,7 +67,7 @@ class Repository private constructor(
     val authLoading: LiveData<Boolean> get() =  _authLoading
 
     // Register
-    private val _register = MutableLiveData<RegisterResponse>()
+    private val _register = SingleLiveEvent<RegisterResponse>()
     val register: LiveData<RegisterResponse> get() = _register
 
     fun register(username: String, email: String, password: String) {
@@ -94,7 +94,7 @@ class Repository private constructor(
     }
 
     // Login
-    private val _login = MutableLiveData<LoginResponse>()
+    private val _login = SingleLiveEvent<LoginResponse>()
     val login: LiveData<LoginResponse> get() = _login
 
     fun login(email: String, password: String) {
