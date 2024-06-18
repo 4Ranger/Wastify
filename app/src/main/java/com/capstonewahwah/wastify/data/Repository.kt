@@ -83,6 +83,9 @@ class Repository private constructor(
                     _register.value = response.body()
                 } else {
                     Log.e(TAG, "onFailure: ${response.message()}")
+                    if (response.code() == 400) {
+                        _response.value = UnhandledResponse(400, "Email sudah digunakan")
+                    }
                 }
             }
 

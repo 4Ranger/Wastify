@@ -57,9 +57,6 @@ class LoginActivity : AppCompatActivity() {
                             userId = user.loginResult?.uid!!,
                             username = user.loginResult.username!!,
                             token = user.loginResult.token!!,
-                            email = user.loginResult.email!!,
-                            history = user.loginResult.historyCount!!,
-                            points = user.loginResult.historyPoints!!,
                             isLoggedIn = true
                         )
                         loginViewModel.saveSession(session)

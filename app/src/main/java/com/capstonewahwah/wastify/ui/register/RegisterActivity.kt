@@ -73,6 +73,10 @@ class RegisterActivity : AppCompatActivity() {
         registerViewModel.authLoading.observe(this) { isLoading ->
             setLoading(isLoading)
         }
+
+        registerViewModel.response.observe(this) { response ->
+            Toast.makeText(this, "${response.code} - ${response.message}", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun setLoading(isLoading: Boolean) {
