@@ -37,7 +37,6 @@
         android:layout_marginTop="20dp"
         android:gravity="center"
         android:orientation="horizontal"
-        android:layout_marginStart="40dp"
         app:layout_constraintEnd_toEndOf="@+id/cv_profile_picture"
         app:layout_constraintStart_toStartOf="@+id/cv_profile_picture"
         app:layout_constraintTop_toBottomOf="@id/cv_profile_picture">
@@ -71,6 +70,7 @@
         android:orientation="horizontal"
         android:layout_marginHorizontal="30dp"
         android:visibility="gone"
+        tools:visibility="visible"
         app:layout_constraintEnd_toEndOf="@+id/cv_profile_picture"
         app:layout_constraintStart_toStartOf="@+id/cv_profile_picture"
         app:layout_constraintTop_toBottomOf="@id/cv_profile_picture">
@@ -92,6 +92,17 @@
                 style="@style/manropeRegular"
                 android:textColor="@color/green"/>
         </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_cancel_username"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_cancel_filled"
+            app:iconSize="32dp"
+            app:iconTint="@color/green"
+            android:backgroundTint="@android:color/transparent"
+            android:outlineSpotShadowColor="@android:color/transparent"
+            android:outlineAmbientShadowColor="@android:color/transparent"/>
 
         <FrameLayout
             android:layout_width="50dp"
@@ -129,7 +140,6 @@
         android:layout_marginTop="90dp"
         android:gravity="center"
         android:orientation="horizontal"
-        android:layout_marginStart="40dp"
         app:layout_constraintEnd_toEndOf="@+id/cv_profile_picture"
         app:layout_constraintStart_toStartOf="@+id/cv_profile_picture"
         app:layout_constraintTop_toBottomOf="@id/cv_profile_picture">
@@ -184,6 +194,17 @@
                 style="@style/manropeRegular"
                 android:textColor="@color/green"/>
         </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_cancel_email"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_cancel_filled"
+            app:iconSize="32dp"
+            app:iconTint="@color/green"
+            android:backgroundTint="@android:color/transparent"
+            android:outlineSpotShadowColor="@android:color/transparent"
+            android:outlineAmbientShadowColor="@android:color/transparent"/>
 
         <FrameLayout
             android:layout_width="50dp"

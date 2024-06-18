@@ -153,12 +153,20 @@ class ProfileFragment : Fragment() {
             binding?.llChangeUsr?.visibility = View.VISIBLE
         }
 
+        binding?.btnCancelUsername?.setOnClickListener {
+            binding?.llUsername?.visibility = View.VISIBLE
+            binding?.llChangeUsr?.visibility = View.GONE
+        }
+
         binding?.btnOkUsername?.setOnClickListener {
             val newUsername = binding?.edtNewUsername?.text?.toString()?.trim()
-            val usernameRequestBody = newUsername?.toRequestBody("text/plain".toMediaType())
 
-            binding?.tvUsername?.text = newUsername
-            profileViewModel.updateUser(data.token, null, usernameRequestBody, null)
+            if (newUsername?.isEmpty()!!) binding?.edtNewUsername?.error = getString(R.string.please_insert_your_new_username_first)
+            else {
+                val usernameRequestBody = newUsername.toRequestBody("text/plain".toMediaType())
+                binding?.tvUsername?.text = newUsername
+                profileViewModel.updateUser(data.token, null, usernameRequestBody, null)
+            }
         }
 
         // email
@@ -167,12 +175,20 @@ class ProfileFragment : Fragment() {
             binding?.llChangeEmail?.visibility = View.VISIBLE
         }
 
+        binding?.btnCancelEmail?.setOnClickListener {
+            binding?.llEmail?.visibility = View.VISIBLE
+            binding?.llChangeEmail?.visibility = View.GONE
+        }
+
         binding?.btnOkEmail?.setOnClickListener {
             val newEmail = binding?.edtNewEmail?.text?.toString()?.trim()
-            val emailRequestBody = newEmail?.toRequestBody("text/plain".toMediaType())
 
-            binding?.tvEmail?.text = newEmail
-            profileViewModel.updateUser(data.token, emailRequestBody, null, null)
+            if (newEmail?.isEmpty()!!) binding?.edtNewEmail?.error = getString(R.string.please_insert_your_new_email_first)
+            else {
+                val emailRequestBody = newEmail.toRequestBody("text/plain".toMediaType())
+                binding?.tvEmail?.text = newEmail
+                profileViewModel.updateUser(data.token, emailRequestBody, null, null)
+            }
         }
 
         profileViewModel.updatedUser.observe(viewLifecycleOwner) { response ->

@@ -83,4 +83,6 @@
     <string name="classification">Klasifikasi</string>
     <string name="new_username">Username Baru</string>
     <string name="new_email">Email Baru</string>
+    <string name="please_insert_your_new_username_first">Silahkan masukkan username baru anda terlebih dahulu</string>
+    <string name="please_insert_your_new_email_first">Silahkan masukkan email baru anda terlebih dahulu</string>
 </resources>
