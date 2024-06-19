@@ -5,6 +5,7 @@ plugins {
     id("androidx.navigation.safeargs")
     id("com.google.devtools.ksp")
     alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -23,6 +24,7 @@ android {
         buildConfigField("String", "NEWS_BASE_URL", "\"https://newsapi.org/v2/\"")
         buildConfigField("String", "BASE_URL", "\"https://wastify-capstone-project.et.r.appspot.com/\"")
         buildConfigField("String", "NEWS_API_KEY", "\"0730bc50fc454b1c9f246f46a19e3c5b\"")
+        buildConfigField("String", "WEB_CLIENT_ID", "\"811553787036-nb4kasc9tolqtoc1vgal4ubkr6skf3r9.apps.googleusercontent.com\"")
     }
 
     buildTypes {
@@ -58,6 +60,7 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.play.services.maps)
+    implementation(libs.firebase.auth.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -74,5 +77,9 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)
-    implementation("com.github.yalantis:ucrop:2.2.8-native")
+    implementation(libs.ucrop)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.androidx.credentials)
+    implementation(libs.androidx.credentials.play.services.auth)
+    implementation(libs.googleid)
 }

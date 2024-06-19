@@ -13,6 +13,7 @@ import com.fouranger.wastify.ui.main.home.profile.ProfileViewModel
 import com.fouranger.wastify.ui.main.leaderboards.LeaderboardsViewModel
 import com.fouranger.wastify.ui.register.RegisterViewModel
 import com.fouranger.wastify.ui.main.scan.ScanViewModel
+import com.fouranger.wastify.ui.welcome.WelcomeViewModel
 
 class ViewModelFactory(private val repository: Repository) : ViewModelProvider.NewInstanceFactory() {
     @Suppress("UNCHECKED_CAST")
@@ -41,6 +42,9 @@ class ViewModelFactory(private val repository: Repository) : ViewModelProvider.N
             }
             modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
                 ProfileViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(WelcomeViewModel::class.java) -> {
+                WelcomeViewModel(repository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel Class: " + modelClass.name)
         }

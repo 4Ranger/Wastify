@@ -65,7 +65,9 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         mainViewModel.getSession().observe(viewLifecycleOwner) { user ->
-            mainViewModel.getUserDetails(user.token)
+            if (user.isLoggedIn) {
+                mainViewModel.getUserDetails(user.token)
+            }
         }
     }
 
