@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.capstonewahwah.wastify.ui.main.home.HomeFragment"
+        android:name="com.fouranger.wastify.ui.main.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -20,17 +20,17 @@
 
     <fragment
         android:id="@+id/navigation_location"
-        android:name="com.capstonewahwah.wastify.ui.main.location.LocationFragment"
+        android:name="com.fouranger.wastify.ui.main.location.LocationFragment"
         android:label="@string/title_location"
         tools:layout="@layout/fragment_location" />
     <fragment
         android:id="@+id/navigation_leaderboards"
-        android:name="com.capstonewahwah.wastify.ui.main.leaderboards.LeaderboardsFragment"
+        android:name="com.fouranger.wastify.ui.main.leaderboards.LeaderboardsFragment"
         android:label="@string/title_leaderboards"
         tools:layout="@layout/fragment_leaderboards" />
     <fragment
         android:id="@+id/navigation_classification"
-        android:name="com.capstonewahwah.wastify.ui.main.classifications.ClassificationsFragment"
+        android:name="com.fouranger.wastify.ui.main.classifications.ClassificationsFragment"
         android:label="@string/title_classifications"
         tools:layout="@layout/fragment_classifications" >
         <action
@@ -39,7 +39,7 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_scan1"
-        android:name="com.capstonewahwah.wastify.ui.main.scan.ScanFragment1"
+        android:name="com.fouranger.wastify.ui.main.scan.ScanFragment1"
         android:label="fragment_scan1"
         tools:layout="@layout/fragment_scan1" >
         <action
@@ -48,7 +48,7 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_scan2"
-        android:name="com.capstonewahwah.wastify.ui.main.scan.ScanFragment2"
+        android:name="com.fouranger.wastify.ui.main.scan.ScanFragment2"
         android:label="fragment_scan2"
         tools:layout="@layout/fragment_scan2" >
         <action
@@ -57,7 +57,7 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_preview"
-        android:name="com.capstonewahwah.wastify.ui.main.scan.PreviewFragment"
+        android:name="com.fouranger.wastify.ui.main.scan.PreviewFragment"
         android:label="fragment_preview"
         tools:layout="@layout/fragment_preview" >
         <argument
@@ -71,7 +71,7 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_result"
-        android:name="com.capstonewahwah.wastify.ui.main.scan.ResultFragment"
+        android:name="com.fouranger.wastify.ui.main.scan.ResultFragment"
         android:label="fragment_result"
         tools:layout="@layout/fragment_result" >
         <argument
@@ -93,7 +93,7 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.capstonewahwah.wastify.ui.main.home.profile.ProfileFragment"
+        android:name="com.fouranger.wastify.ui.main.home.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" >
         <argument
@@ -115,7 +115,7 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_details"
-        android:name="com.capstonewahwah.wastify.ui.main.classifications.details.ClassificationDetailsFragment"
+        android:name="com.fouranger.wastify.ui.main.classifications.details.ClassificationDetailsFragment"
         android:label="fragment_classification_details"
         tools:layout="@layout/fragment_classification_details" >
         <argument
@@ -153,7 +153,7 @@
     </fragment>
     <fragment
         android:id="@+id/articleDetailsFragment"
-        android:name="com.capstonewahwah.wastify.ui.main.home.articleDetails.ArticleDetailsFragment"
+        android:name="com.fouranger.wastify.ui.main.home.articleDetails.ArticleDetailsFragment"
         android:label="fragment_article_details"
         tools:layout="@layout/fragment_article_details" >
         <argument
