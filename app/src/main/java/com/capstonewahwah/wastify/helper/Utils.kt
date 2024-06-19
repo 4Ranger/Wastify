@@ -6,12 +6,8 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.net.Uri
-import android.os.Build
-import android.os.Environment
 import android.provider.MediaStore
-import androidx.core.content.FileProvider
 import androidx.exifinterface.media.ExifInterface
-import com.capstonewahwah.wastify.BuildConfig
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream

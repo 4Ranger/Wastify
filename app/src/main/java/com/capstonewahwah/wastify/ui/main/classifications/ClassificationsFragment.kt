@@ -9,9 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.transition.Fade
-import com.capstonewahwah.wastify.R
 import com.capstonewahwah.wastify.adapters.HistoryAdapter
-import com.capstonewahwah.wastify.data.remote.response.HistoryResponse
 import com.capstonewahwah.wastify.data.remote.response.HistoryResponseItem
 import com.capstonewahwah.wastify.data.remote.response.Prediction
 import com.capstonewahwah.wastify.data.remote.response.Recommendations1
